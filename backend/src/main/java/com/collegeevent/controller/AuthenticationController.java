@@ -16,11 +16,23 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public AuthResponse register(@RequestBody RegisterRequest request) {
+
+        System.out.println("====================================");
+        System.out.println("REGISTER API CALLED");
+        System.out.println("Email : " + request.getEmail());
+        System.out.println("====================================");
+
         return userService.register(request);
     }
 
     @PostMapping("/login")
     public AuthResponse login(@RequestBody LoginRequest request) {
+
+        System.out.println("====================================");
+        System.out.println("LOGIN API CALLED");
+        System.out.println("Email : " + request.getEmail());
+        System.out.println("====================================");
+
         return userService.login(request);
     }
 }
