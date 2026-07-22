@@ -6,6 +6,7 @@ import com.collegeevent.dto.RegisterRequest;
 import com.collegeevent.entity.User;
 import com.collegeevent.enums.Role;
 import com.collegeevent.repository.UserRepository;
+import com.collegeevent.security.JwtService;
 import com.collegeevent.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,6 +18,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
 
     @Override
     public AuthResponse register(RegisterRequest request) {
@@ -48,6 +50,20 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public AuthResponse login(LoginRequest request) {
-        return null;
+
+        User user = userRepository.findByEmail(request.getEmail())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+            throw new RuntimeException("Invalid Credentials");
+        }
+
+        // Generate JWT Token
+        String token = jwtService.generateToken(user.getEmail());
+
+        return AuthResponse.builder()
+                .token(token)
+                .message("Login Successful")
+                .build();
     }
 }
