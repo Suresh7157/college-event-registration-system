@@ -1,0 +1,53 @@
+body {
+    background: #f5f7fb;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.login-page {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0d6efd 0%, #1d4ed8 100%);
+}
+
+.card {
+    border-radius: 20px !important;
+}
+
+.card-body {
+    padding: 40px;
+}
+
+.form-control {
+    height: 50px;
+    border-radius: 10px;
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: #0d6efd;
+}
+
+.input-group .btn {
+    border-radius: 0 10px 10px 0;
+}
+
+.btn-primary {
+    height: 50px;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+.btn-primary:hover {
+    background: #0b5ed7;
+}
+
+a {
+    font-weight: 600;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.bi-mortarboard-fill {
+    color: #0d6efd;
+}
