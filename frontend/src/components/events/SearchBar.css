@@ -1,0 +1,23 @@
+.search-section {
+    background: #f8f9fa;
+    padding: 20px 0;
+}
+.search-card {
+    background: white;
+    padding: 25px;
+    border-radius: var(--border-radius);
+}
+
+.input-group-text {
+    background: white;
+    border-right: none;
+}
+
+.form-control {
+    border-left: none;
+    box-shadow: none !important;
+}
+
+.form-control:focus {
+    border-color: #ced4da;
+}

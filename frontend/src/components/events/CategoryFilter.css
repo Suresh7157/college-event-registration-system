@@ -1,0 +1,15 @@
+.category-section {
+    background: #fff;
+}
+
+.category-section h4 {
+    color: #212529;
+}
+
+.category-section .btn {
+    transition: all 0.3s ease;
+}
+
+.category-section .btn:hover {
+    transform: translateY(-2px);
+}
