@@ -1,4 +1,19 @@
 package com.collegeevent.service;
 
-public class AdminService {
+import com.collegeevent.dto.DashboardResponse;
+import com.collegeevent.dto.EventResponseDTO;
+import com.collegeevent.dto.UserResponse;
+import java.util.List;
+
+public interface AdminService {
+
+    DashboardResponse getDashboardStatistics();
+
+    List<UserResponse> getAllUsers();
+
+    List<UserResponse> searchUsers(String keyword);
+    List<EventResponseDTO> getAllEvents();
+    List<EventResponseDTO> searchEvents(String keyword);
+
+    void deleteUser(Long id);
 }

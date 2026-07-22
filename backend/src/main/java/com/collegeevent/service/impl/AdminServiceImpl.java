@@ -1,4 +1,117 @@
 package com.collegeevent.service.impl;
 
-public class AdminServiceImpl {
+import com.collegeevent.dto.DashboardResponse;
+import com.collegeevent.dto.EventResponseDTO;
+import com.collegeevent.dto.UserResponse;
+import com.collegeevent.repository.EventRepository;
+import com.collegeevent.repository.RegistrationRepository;
+import com.collegeevent.repository.UserRepository;
+import com.collegeevent.repository.VolunteerRepository;
+import com.collegeevent.service.AdminService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
+@Service
+@RequiredArgsConstructor
+public class AdminServiceImpl implements AdminService {
+
+    private final UserRepository userRepository;
+    private final EventRepository eventRepository;
+    private final RegistrationRepository registrationRepository;
+    private final VolunteerRepository volunteerRepository;
+
+    @Override
+    public DashboardResponse getDashboardStatistics() {
+
+        DashboardResponse response = new DashboardResponse();
+
+        response.setTotalUsers(userRepository.count());
+        response.setTotalEvents(eventRepository.count());
+        response.setTotalRegistrations(registrationRepository.count());
+        response.setTotalVolunteers(volunteerRepository.count());
+
+        return response;
+    }
+    @Override
+    public List<UserResponse> getAllUsers() {
+
+        return userRepository.findAll()
+                .stream()
+                .map(user -> new UserResponse(
+                        user.getId(),
+                        user.getFullName(),
+                        user.getEmail(),
+                        user.getPhoneNumber(),
+                        user.getDepartment(),
+                        user.getYear(),
+                        user.getRole()
+                ))
+                .toList();
+
+    }
+    @Override
+    public void deleteUser(Long id) {
+
+        userRepository.deleteById(id);
+    }
+    @Override
+    public List<UserResponse> searchUsers(String keyword) {
+
+        return userRepository.findByFullNameContainingIgnoreCase(keyword)
+                .stream()
+                .map(user -> new UserResponse(
+                        user.getId(),
+                        user.getFullName(),
+                        user.getEmail(),
+                        user.getPhoneNumber(),
+                        user.getDepartment(),
+                        user.getYear(),
+                        user.getRole()
+                ))
+                .toList();
+    }
+    @Override
+    public List<EventResponseDTO> getAllEvents() {
+
+        return eventRepository.findAll()
+                .stream()
+                .map(event -> EventResponseDTO.builder()
+                        .id(event.getId())
+                        .title(event.getTitle())
+                        .description(event.getDescription())
+                        .venue(event.getVenue())
+                        .eventDate(event.getEventDate())
+                        .eventTime(event.getEventTime())
+                        .capacity(event.getCapacity())
+                        .registrationDeadline(event.getRegistrationDeadline())
+                        .status(event.getStatus())
+                        .createdAt(event.getCreatedAt())
+                        .updatedAt(event.getUpdatedAt())
+                        .build())
+                .toList();
+    }
+    @Override
+    public List<EventResponseDTO> searchEvents(String keyword) {
+
+        return eventRepository.findByTitleContainingIgnoreCase(keyword)
+                .stream()
+                .map(event -> EventResponseDTO.builder()
+                        .id(event.getId())
+                        .title(event.getTitle())
+                        .description(event.getDescription())
+                        .venue(event.getVenue())
+                        .eventDate(event.getEventDate())
+                        .eventTime(event.getEventTime())
+                        .capacity(event.getCapacity())
+                        .registrationDeadline(event.getRegistrationDeadline())
+                        .status(event.getStatus())
+                        .createdAt(event.getCreatedAt())
+                        .updatedAt(event.getUpdatedAt())
+                        .build())
+                .toList();
+    }
 }
