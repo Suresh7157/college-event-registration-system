@@ -1,6 +1,7 @@
 package com.collegeevent.controller;
 
-import com.collegeevent.entity.Registration;
+import com.collegeevent.dto.RegistrationRequestDTO;
+import com.collegeevent.dto.RegistrationResponseDTO;
 import com.collegeevent.service.RegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,17 +17,17 @@ public class RegistrationController {
     private RegistrationService registrationService;
 
     @PostMapping
-    public Registration registerStudent(@RequestBody Registration registration) {
-        return registrationService.registerStudent(registration);
+    public RegistrationResponseDTO registerStudent(@RequestBody RegistrationRequestDTO request) {
+        return registrationService.registerStudent(request);
     }
 
     @GetMapping
-    public List<Registration> getAllRegistrations() {
+    public List<RegistrationResponseDTO> getAllRegistrations() {
         return registrationService.getAllRegistrations();
     }
 
     @GetMapping("/{id}")
-    public Registration getRegistrationById(@PathVariable Long id) {
+    public RegistrationResponseDTO getRegistrationById(@PathVariable Long id) {
         return registrationService.getRegistrationById(id);
     }
 

@@ -1,16 +1,17 @@
 package com.collegeevent.service;
 
-import com.collegeevent.entity.Registration;
+import com.collegeevent.dto.RegistrationRequestDTO;
+import com.collegeevent.dto.RegistrationResponseDTO;
 
 import java.util.List;
 
 public interface RegistrationService {
 
-    Registration registerStudent(Registration registration);
+    RegistrationResponseDTO registerStudent(RegistrationRequestDTO request);
 
-    List<Registration> getAllRegistrations();
+    List<RegistrationResponseDTO> getAllRegistrations();
 
-    Registration getRegistrationById(Long id);
+    RegistrationResponseDTO getRegistrationById(Long id);
 
     void deleteRegistration(Long id);
 }
