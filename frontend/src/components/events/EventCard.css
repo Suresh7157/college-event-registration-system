@@ -1,0 +1,31 @@
+.event-card{
+
+    border:none;
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    transition:.3s;
+
+}
+
+.event-card:hover{
+
+    transform:translateY(-5px);
+
+}
+
+.event-card img{
+
+    height:220px;
+
+    object-fit:cover;
+
+}
+
+.card-title{
+
+    min-height:55px;
+
+}

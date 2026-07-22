@@ -1,31 +1,33 @@
+import heroImage from "../assets/images/events/hero.avif";
+
 const dummyEvents = [
   {
     id: 1,
     title: "Hackathon 2026",
     category: "Technical",
-    venue: "Auditorium",
-    date: "10 Aug 2026",
+    venue: "Main Auditorium",
+    date: "24 July 2026",
     seats: 120,
-    image: "/src/assets/images/events/hackathon.jpg"
+    image: heroImage,
   },
   {
     id: 2,
-    title: "Web Development Workshop",
+    title: "AI Workshop",
     category: "Workshop",
     venue: "Seminar Hall",
-    date: "15 Aug 2026",
-    seats: 60,
-    image: "/src/assets/images/events/web.jpg"
+    date: "28 July 2026",
+    seats: 80,
+    image: heroImage,
   },
   {
     id: 3,
-    title: "AI Seminar",
-    category: "Seminar",
-    venue: "Conference Hall",
-    date: "20 Aug 2026",
-    seats: 80,
-    image: "/src/assets/images/events/ai.jpg"
-  }
+    title: "Cultural Fest",
+    category: "Cultural",
+    venue: "Open Ground",
+    date: "2 August 2026",
+    seats: 300,
+    image: heroImage,
+  },
 ];
 
 export default dummyEvents;
