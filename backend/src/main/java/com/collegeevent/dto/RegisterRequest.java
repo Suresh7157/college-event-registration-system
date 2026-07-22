@@ -1,5 +1,6 @@
 package com.collegeevent.dto;
 
+import com.collegeevent.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,4 +21,6 @@ public class RegisterRequest {
     private String department;
     private Integer year;
 
+    // User Role
+    private Role role;
 }

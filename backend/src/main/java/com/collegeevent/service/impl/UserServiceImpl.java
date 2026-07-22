@@ -23,14 +23,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public AuthResponse register(RegisterRequest request) {
 
+        // Check if email already exists
         if (userRepository.existsByEmail(request.getEmail())) {
             throw new RuntimeException("Email already exists");
         }
 
+        // Check if phone number already exists
         if (userRepository.existsByPhoneNumber(request.getPhoneNumber())) {
             throw new RuntimeException("Phone number already exists");
         }
 
+        // Create User
         User user = User.builder()
                 .fullName(request.getFullName())
                 .email(request.getEmail())
@@ -38,12 +41,18 @@ public class UserServiceImpl implements UserService {
                 .phoneNumber(request.getPhoneNumber())
                 .department(request.getDepartment())
                 .year(request.getYear())
-                .role(Role.STUDENT)
+                .role(request.getRole() != null ? request.getRole() : Role.STUDENT)
                 .build();
 
-        userRepository.save(user);
+        // Save User
+        User savedUser = userRepository.save(user);
 
+        // Generate JWT Token
+        String token = jwtService.generateToken(savedUser.getEmail());
+
+        // Return Response
         return AuthResponse.builder()
+                .token(token)
                 .message("Registration Successful")
                 .build();
     }
