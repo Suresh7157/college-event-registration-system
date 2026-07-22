@@ -41,7 +41,6 @@ public class SecurityConfig {
                         // =========================
                         // ADMIN APIs
                         // =========================
-                        .requestMatchers("/api/admin/**").permitAll()
 
                         // =========================
                         // EVENT MANAGEMENT
@@ -50,13 +49,11 @@ public class SecurityConfig {
                         .hasAnyRole("ADMIN", "ORGANIZER")
 
                         // =========================
-                        // REGISTRATION MODULE
                         // =========================
                         .requestMatchers("/api/registrations/**")
                         .hasRole("STUDENT")
 
                         // =========================
-                        // VOLUNTEER MODULE
                         // =========================
                         .requestMatchers(HttpMethod.POST, "/api/volunteers")
                         .hasRole("STUDENT")
@@ -71,7 +68,6 @@ public class SecurityConfig {
                         .hasRole("ADMIN")
 
                         // =========================
-                        // ALL OTHER REQUESTS
                         // =========================
                         .anyRequest().authenticated()
                 )
