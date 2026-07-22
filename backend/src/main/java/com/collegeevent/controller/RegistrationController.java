@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/registration")
+@RequestMapping("/api/registrations")
 @CrossOrigin(origins = "http://localhost:5173")
 public class RegistrationController {
 
