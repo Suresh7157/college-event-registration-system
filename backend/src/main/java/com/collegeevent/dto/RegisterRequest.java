@@ -15,12 +15,19 @@ import lombok.Setter;
 public class RegisterRequest {
 
     private String fullName;
+
     private String email;
+
     private String password;
+
     private String phoneNumber;
+
     private String department;
+
     private Integer year;
 
-    // User Role
     private Role role;
+
+    // NEW FIELD
+    private String organizerCode;
 }
