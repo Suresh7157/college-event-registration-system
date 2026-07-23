@@ -20,7 +20,7 @@ function SearchBar() {
                 <input
                   type="text"
                   className="form-control"
-                  placeholder="Search events..."
+                  placeholder="Search by event title..."
                 />
 
               </div>

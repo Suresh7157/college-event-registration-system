@@ -1,6 +1,26 @@
+// import "./FilterBar.css";
+// import SearchBar from "./SearchBar";
+// import CategoryFilter from "./CategoryFilter";
+
+// function FilterBar() {
+//   return (
+//     <section className="filter-bar py-4">
+//       <div className="container">
+
+//         <SearchBar />
+
+//         <CategoryFilter />
+
+//       </div>
+//     </section>
+//   );
+// }
+
+// export default FilterBar;
+
 import "./FilterBar.css";
 import SearchBar from "./SearchBar";
-import CategoryFilter from "./CategoryFilter";
+import StatusFilter from "./StatusFilter";
 
 function FilterBar() {
   return (
@@ -9,7 +29,7 @@ function FilterBar() {
 
         <SearchBar />
 
-        <CategoryFilter />
+        <StatusFilter />
 
       </div>
     </section>

@@ -13,8 +13,18 @@ function EventCard({ event }) {
 
       <div className="card-body">
 
-        <span className="badge bg-primary mb-2">
-          {event.category}
+        <span
+          className={`badge mb-2 ${
+            event.status === "UPCOMING"
+              ? "bg-primary"
+              : event.status === "ACTIVE"
+              ? "bg-success"
+              : event.status === "COMPLETED"
+              ? "bg-secondary"
+              : "bg-danger"
+          }`}
+        >
+          {event.status}
         </span>
 
         <h5 className="card-title fw-bold">
@@ -23,7 +33,12 @@ function EventCard({ event }) {
 
         <p className="text-muted mb-2">
           <i className="bi bi-calendar-event me-2"></i>
-          {event.date}
+          {event.eventDate}
+        </p>
+
+        <p className="text-muted mb-2">
+          <i className="bi bi-clock me-2"></i>
+          {event.eventTime}
         </p>
 
         <p className="text-muted mb-2">
@@ -33,7 +48,7 @@ function EventCard({ event }) {
 
         <p className="text-muted">
           <i className="bi bi-people me-2"></i>
-          {event.seats} Seats
+          Capacity: {event.capacity}
         </p>
 
       </div>
@@ -41,11 +56,11 @@ function EventCard({ event }) {
       <div className="card-footer bg-white border-0">
 
         <Link
-    to={`/events/${event.id}`}
-    className="btn btn-primary w-100"
->
-    View Details
-</Link>
+          to={`/events/${event.id}`}
+          className="btn btn-primary w-100"
+        >
+          View Details
+        </Link>
 
       </div>
 

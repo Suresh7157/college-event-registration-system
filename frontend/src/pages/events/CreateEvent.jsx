@@ -5,10 +5,12 @@ function CreateEvent() {
     const [event, setEvent] = useState({
         title: "",
         description: "",
-        category: "",
         venue: "",
-        date: "",
-        seats: ""
+        eventDate: "",
+        eventTime: "",
+        capacity: "",
+        registrationDeadline: "",
+        status: ""
     });
 
     const handleChange = (e) => {
@@ -32,11 +34,9 @@ function CreateEvent() {
             <div className="card shadow">
 
                 <div className="card-header bg-primary text-white">
-
                     <h3 className="mb-0">
                         Create Event
                     </h3>
-
                 </div>
 
                 <div className="card-body">
@@ -46,7 +46,6 @@ function CreateEvent() {
                         <div className="row">
 
                             <div className="col-md-6 mb-3">
-
                                 <label className="form-label">
                                     Event Title
                                 </label>
@@ -58,44 +57,25 @@ function CreateEvent() {
                                     value={event.title}
                                     onChange={handleChange}
                                 />
-
                             </div>
 
                             <div className="col-md-6 mb-3">
-
                                 <label className="form-label">
-                                    Category
+                                    Status
                                 </label>
 
                                 <select
                                     className="form-select"
-                                    name="category"
-                                    value={event.category}
+                                    name="status"
+                                    value={event.status}
                                     onChange={handleChange}
                                 >
-
-                                    <option value="">
-                                        Select Category
-                                    </option>
-
-                                    <option>
-                                        Technical
-                                    </option>
-
-                                    <option>
-                                        Workshop
-                                    </option>
-
-                                    <option>
-                                        Cultural
-                                    </option>
-
-                                    <option>
-                                        Sports
-                                    </option>
-
+                                    <option value="">Select Status</option>
+                                    <option value="UPCOMING">UPCOMING</option>
+                                    <option value="ACTIVE">ACTIVE</option>
+                                    <option value="COMPLETED">COMPLETED</option>
+                                    <option value="CANCELLED">CANCELLED</option>
                                 </select>
-
                             </div>
 
                         </div>
@@ -118,7 +98,7 @@ function CreateEvent() {
 
                         <div className="row">
 
-                            <div className="col-md-4 mb-3">
+                            <div className="col-md-6 mb-3">
 
                                 <label className="form-label">
                                     Venue
@@ -134,33 +114,17 @@ function CreateEvent() {
 
                             </div>
 
-                            <div className="col-md-4 mb-3">
+                            <div className="col-md-6 mb-3">
 
                                 <label className="form-label">
-                                    Date
+                                    Event Date
                                 </label>
 
                                 <input
                                     type="date"
                                     className="form-control"
-                                    name="date"
-                                    value={event.date}
-                                    onChange={handleChange}
-                                />
-
-                            </div>
-
-                            <div className="col-md-4 mb-3">
-
-                                <label className="form-label">
-                                    Seats
-                                </label>
-
-                                <input
-                                    type="number"
-                                    className="form-control"
-                                    name="seats"
-                                    value={event.seats}
+                                    name="eventDate"
+                                    value={event.eventDate}
                                     onChange={handleChange}
                                 />
 
@@ -168,9 +132,59 @@ function CreateEvent() {
 
                         </div>
 
-                        <button
-                            className="btn btn-primary"
-                        >
+                        <div className="row">
+
+                            <div className="col-md-4 mb-3">
+
+                                <label className="form-label">
+                                    Event Time
+                                </label>
+
+                                <input
+                                    type="time"
+                                    className="form-control"
+                                    name="eventTime"
+                                    value={event.eventTime}
+                                    onChange={handleChange}
+                                />
+
+                            </div>
+
+                            <div className="col-md-4 mb-3">
+
+                                <label className="form-label">
+                                    Capacity
+                                </label>
+
+                                <input
+                                    type="number"
+                                    className="form-control"
+                                    name="capacity"
+                                    value={event.capacity}
+                                    onChange={handleChange}
+                                />
+
+                            </div>
+
+                            <div className="col-md-4 mb-3">
+
+                                <label className="form-label">
+                                    Registration Deadline
+                                </label>
+
+                                <input
+                                    type="date"
+                                    className="form-control"
+                                    name="registrationDeadline"
+                                    value={event.registrationDeadline}
+                                    onChange={handleChange}
+                                />
+
+                            </div>
+
+                        </div>
+
+                        <button className="btn btn-primary">
                             Create Event
                         </button>
 
