@@ -23,4 +23,6 @@ public class RegisterRequest {
 
     // User Role
     private Role role;
+    // NEW FIELD
+    private String organizerCode;
 }
