@@ -10,6 +10,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.List;
 
 @Configuration
 @RequiredArgsConstructor
@@ -21,6 +26,10 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
+
+                // Enable CORS
+                .cors(Customizer.withDefaults())
+
                 // Disable CSRF
                 .csrf(csrf -> csrf.disable())
 
@@ -29,60 +38,41 @@ public class SecurityConfig {
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
 
-                // Authorization Rules
+                // Authorization
                 .authorizeHttpRequests(auth -> auth
 
-                        // =========================
-                        // PUBLIC APIs
-                        // =========================
+                        // Public APIs
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/error").permitAll()
 
-                        // =========================
-                        // ADMIN APIs
-                        // =========================
+                        // Admin
                         .requestMatchers(
                                 "/api/dashboard/**",
                                 "/api/reports/**",
                                 "/api/analytics/**"
                         ).hasRole("ADMIN")
 
-                        // =========================
-                        // EVENT MANAGEMENT
-                        // ADMIN & ORGANIZER
-                        // =========================
+                        // Events
                         .requestMatchers("/api/events/**")
                         .hasAnyRole("ADMIN", "ORGANIZER")
 
-                        // =========================
-                        // STUDENT REGISTRATION
-                        // =========================
+                        // Student Registration
                         .requestMatchers("/api/registrations/**")
                         .hasRole("STUDENT")
 
-                        // =========================
-                        // VOLUNTEER MANAGEMENT
-                        // =========================
-
-                        // Student can apply for volunteer
+                        // Volunteer
                         .requestMatchers(HttpMethod.POST, "/api/volunteers")
                         .hasRole("STUDENT")
 
-                        // Admin & Volunteer can view
                         .requestMatchers(HttpMethod.GET, "/api/volunteers/**")
                         .hasAnyRole("ADMIN", "VOLUNTEER")
 
-                        // Only Admin can update
                         .requestMatchers(HttpMethod.PUT, "/api/volunteers/**")
                         .hasRole("ADMIN")
 
-                        // Only Admin can delete
                         .requestMatchers(HttpMethod.DELETE, "/api/volunteers/**")
                         .hasRole("ADMIN")
 
-                        // =========================
-                        // ALL OTHER APIs
-                        // =========================
                         .anyRequest().authenticated()
                 )
 
@@ -92,9 +82,35 @@ public class SecurityConfig {
                         UsernamePasswordAuthenticationFilter.class
                 )
 
-                // HTTP Basic
                 .httpBasic(Customizer.withDefaults());
 
         return http.build();
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+
+        CorsConfiguration configuration = new CorsConfiguration();
+
+        configuration.setAllowedOrigins(
+                List.of("http://localhost:5173")
+        );
+
+        configuration.setAllowedMethods(
+                List.of("GET", "POST", "PUT", "DELETE", "OPTIONS")
+        );
+
+        configuration.setAllowedHeaders(
+                List.of("*")
+        );
+
+        configuration.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source =
+                new UrlBasedCorsConfigurationSource();
+
+        source.registerCorsConfiguration("/**", configuration);
+
+        return source;
     }
 }

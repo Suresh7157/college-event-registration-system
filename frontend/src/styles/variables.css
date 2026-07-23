@@ -1,0 +1,34 @@
+:root {
+
+  /* Primary Theme */
+  --primary-color: #0d6efd;
+  --primary-dark: #1d4ed8;
+
+  /* Status Colors */
+  --success-color: #198754;
+  --danger-color: #dc3545;
+  --warning-color: #ffc107;
+
+  /* Background */
+  --background-color: #f5f7fb;
+  --card-color: #ffffff;
+
+  /* Text */
+  --text-dark: #212529;
+  --text-light: #6c757d;
+
+  /* Border */
+  --border-color: #dee2e6;
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+
+  /* Shadow */
+  --shadow:
+      0 12px 30px rgba(0,0,0,.08);
+
+  /* Transition */
+  --transition: .3s ease;
+}
