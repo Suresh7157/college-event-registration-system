@@ -78,6 +78,7 @@ public class EventServiceImpl implements EventService {
         event.setEventTime(requestDTO.getEventTime());
         event.setCapacity(requestDTO.getCapacity());
         event.setRegistrationDeadline(requestDTO.getRegistrationDeadline());
+        event.setStatus(requestDTO.getStatus());
         event.setUpdatedAt(java.time.LocalDateTime.now());
 
         Event updatedEvent = eventRepository.save(event);
