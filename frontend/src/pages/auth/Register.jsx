@@ -223,17 +223,13 @@ function Register() {
     };
         return (
 
-        <div className="login-page">
+        <div className="register-page">
 
-            <div className="container">
+            {/* Left: Fixed Hero Panel */}
 
-                <div className="row align-items-center min-vh-100">
+            <div className="register-hero d-none d-lg-flex">
 
-                    {/* Left Section */}
-
-                    <div className="col-lg-6 d-none d-lg-flex">
-
-                        <div className="hero-section">
+                <div className="hero-section">
 
                             <div className="hero-badge">
                                 <i className="bi bi-stars"></i>
@@ -280,11 +276,11 @@ function Register() {
 
                     </div>
 
-                    {/* Right Section */}
+            {/* Right: Scrollable Form Panel */}
 
-                    <div className="col-lg-6">
+            <div className="register-form-panel">
 
-                        <div className="login-card">
+                <div className="login-card">
 
                             <div className="text-center mb-4">
 
@@ -553,10 +549,6 @@ function Register() {
                             </div>
 
                         </div>
-
-                    </div>
-
-                </div>
 
             </div>
 

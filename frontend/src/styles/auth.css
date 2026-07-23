@@ -2,94 +2,282 @@
    AUTH PAGE
 ========================== */
 
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* Override index.css #root constraints for the auth layout */
+body:has(.login-page) #root {
+    width: 100%;
+    max-width: 100%;
+    border-inline: none;
+    background: transparent;
+    text-align: left;
+}
+
 .login-page {
     min-height: 100vh;
-    background: linear-gradient(135deg, #2563eb, #4f46e5);
+    height: 100vh;
+    background: linear-gradient(135deg, #1d4ed8 0%, #4f46e5 100%);
+    background-size: 200% 200%;
+    animation: gradientShift 12s ease infinite;
+    display: flex;
+    align-items: stretch;
+    overflow: hidden;
+}
+
+
+.login-page > .login-container {
     display: flex;
     align-items: center;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.login-page .row {
+    width: 100%;
+    min-height: unset !important;
+    flex-wrap: nowrap;
+    gap: 0;
 }
 
 /* ==========================
-   HERO SECTION
+   HERO SECTION (LEFT)
 ========================== */
 
 .hero-section {
-    color: white;
-    padding-right: 40px;
+    color: #fff;
+    padding-right: clamp(1.5rem, 3vw, 3rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+}
+
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    margin-bottom: 1.25rem;
+    width: fit-content;
+    backdrop-filter: blur(6px);
+    animation: fadeSlideUp 0.6s ease both, badgePulse 4s ease-in-out 2s infinite;
+}
+
+.hero-badge i {
+    font-size: 0.9rem;
+    color: #fbbf24;
+}
+
+.hero-title {
+    font-size: clamp(1.6rem, 2.4vw, 2.4rem);
+    font-weight: 800;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.85rem;
+    color: #fff;
+    animation: fadeSlideUp 0.8s ease 0.1s both;
+}
+
+.hero-description {
+    font-size: clamp(0.85rem, 1vw, 0.97rem);
+    line-height: 1.75;
+    color: rgba(255, 255, 255, 0.82);
+    margin-bottom: 1rem;
+    max-width: 480px;
+    animation: fadeSlideUp 0.8s ease 0.3s both;
 }
 
 .hero-image {
     width: 100%;
-    max-width: 500px;
-    margin-bottom: 30px;
-}
-
-.hero-title {
-    font-size: 2.6rem;
-    font-weight: 700;
-    margin-bottom: 18px;
-}
-
-.hero-description {
-    font-size: 1.08rem;
-    line-height: 1.8;
-    opacity: 0.95;
-    margin-bottom: 30px;
+    max-width: 420px;
+    height: auto;
+    max-height: 28vh;
+    object-fit: contain;
+    margin: 0.5rem 0 1.25rem;
+    filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.2));
+    animation: fadeSlideUp 0.8s ease 0.45s both, heroFloat 5s ease-in-out 1.5s infinite;
 }
 
 /* ==========================
-   FEATURES
+   STATS
 ========================== */
 
-.feature-list {
+.stats-container {
     display: flex;
-    flex-direction: column;
-    gap: 18px;
+    gap: 0.75rem;
+    flex-wrap: nowrap;
+    animation: fadeSlideUp 0.8s ease 0.55s both;
 }
 
-.feature-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-size: 1rem;
+.stat-card {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 14px;
+    padding: 0.85rem 0.75rem;
+    text-align: center;
+    backdrop-filter: blur(8px);
+    transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.feature-item i {
-    color: #22c55e;
-    font-size: 1.2rem;
+.stats-container .stat-card:nth-child(1) { animation: fadeSlideUp 0.6s ease 0.6s both; }
+.stats-container .stat-card:nth-child(2) { animation: fadeSlideUp 0.6s ease 0.75s both; }
+.stats-container .stat-card:nth-child(3) { animation: fadeSlideUp 0.6s ease 0.9s both; }
+
+.stat-card:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.stat-card h3 {
+    font-size: clamp(1.2rem, 1.8vw, 1.6rem);
+    font-weight: 800;
+    color: #fff;
+    margin: 0 0 0.2rem;
+    line-height: 1;
+}
+
+.stat-card p {
+    font-size: clamp(0.68rem, 0.85vw, 0.78rem);
+    color: rgba(255, 255, 255, 0.75);
+    margin: 0;
+    font-weight: 500;
 }
 
 /* ==========================
-   LOGIN CARD
+   KEYFRAMES
+========================== */
+
+@keyframes fadeSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes heroFloat {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-6px); }
+}
+
+@keyframes badgePulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+    50%       { box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.08); }
+}
+
+@keyframes gradientShift {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ==========================
+   LOGIN CARD (RIGHT)
 ========================== */
 
 .login-card {
-    background: rgba(255, 255, 255, 0.95);
+    background: #fff;
     border-radius: 20px;
-    padding: 40px;
-    backdrop-filter: blur(12px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+    box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.05),
+        0 20px 50px rgba(0, 0, 0, 0.18);
+}
+
+.login-card .display-5 {
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+}
+
+.login-card h2 {
+    font-size: clamp(1.3rem, 2vw, 1.65rem);
+    letter-spacing: -0.02em;
+}
+
+.login-card .text-muted {
+    font-size: 0.9rem;
 }
 
 /* ==========================
-   FORM
+   FORM CONTROLS
 ========================== */
 
 .form-label {
     font-weight: 600;
+    font-size: 0.875rem;
+    color: #374151;
+    margin-bottom: 0.4rem;
 }
 
 .form-control {
-    height: 50px;
+    height: 44px;
     border-radius: 10px;
+    font-size: 0.9rem;
+    border-color: #d1d5db;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-control:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    outline: none;
 }
 
 .input-group-text {
     border-radius: 10px 0 0 10px;
+    border-color: #d1d5db;
+    background: #f9fafb;
+    color: #6b7280;
+    font-size: 0.9rem;
 }
 
 .btn-outline-secondary {
     border-radius: 0 10px 10px 0;
+    border-color: #d1d5db;
+    color: #6b7280;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.btn-outline-secondary:hover {
+    background: #f3f4f6;
+    color: #374151;
+    border-color: #d1d5db;
+}
+
+.form-check-input:checked {
+    background-color: #2563eb;
+    border-color: #2563eb;
+}
+
+.form-check-label {
+    font-size: 0.875rem;
+    color: #374151;
 }
 
 /* ==========================
@@ -98,13 +286,24 @@
 
 .btn-primary {
     border-radius: 10px;
-    padding: 12px;
-    font-size: 1rem;
-    transition: 0.3s;
+    padding: 0.65rem 1rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    background: linear-gradient(135deg, #2563eb, #4f46e5);
+    border: none;
+    transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
 }
 
-.btn-primary:hover {
-    transform: translateY(-2px);
+.btn-primary:hover:not(:disabled) {
+    opacity: 0.92;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.45);
+}
+
+.btn-primary:active:not(:disabled) {
+    transform: translateY(0);
 }
 
 /* ==========================
@@ -112,36 +311,220 @@
 ========================== */
 
 a {
-    transition: 0.3s;
+    transition: color 0.2s ease;
 }
 
 a:hover {
     color: #2563eb !important;
 }
 
+.login-card hr {
+    border-color: #e5e7eb;
+    opacity: 1;
+    margin: 1.25rem 0;
+}
+
+.login-card .text-center p {
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+
+.login-card .fw-semibold {
+    color: #2563eb;
+}
+
 /* ==========================
-   RESPONSIVE
+   REGISTER PAGE
 ========================== */
 
-@media (max-width: 991px) {
+body:has(.register-page) {
+    overflow: hidden;
+}
 
-    .hero-section {
+body:has(.register-page) #root {
+    width: 100%;
+    max-width: 100%;
+    border-inline: none;
+    background: transparent;
+    text-align: left;
+    overflow: hidden;
+}
+
+.register-page {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    overflow: hidden;
+    background: linear-gradient(135deg, #1d4ed8 0%, #4f46e5 100%);
+    background-size: 200% 200%;
+    animation: gradientShift 12s ease infinite;
+}
+
+/* Left: fixed hero panel */
+.register-hero {
+    width: 55%;
+    flex-shrink: 0;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(2rem, 4vw, 4rem) clamp(1.5rem, 3vw, 3rem);
+}
+
+.register-hero .hero-section {
+    width: 100%;
+    max-width: 560px;
+    justify-content: center;
+    padding-right: 0;
+}
+
+.register-hero .hero-image {
+    max-height: 24vh;
+}
+
+/* Right: scrollable form panel */
+.register-form-panel {
+    width: 45%;
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+    display: flex;
+    align-items: flex-start;
+    background: transparent;
+    border-left: none;
+    padding: 2rem 2rem 2rem 0;
+}
+
+.register-form-panel::-webkit-scrollbar {
+    width: 5px;
+}
+
+.register-form-panel::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.register-form-panel::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 999px;
+}
+
+.register-form-panel .login-card {
+    width: 100%;
+    max-width: 520px;
+    margin: auto;
+    border-radius: 28px;
+    box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.06),
+        0 20px 60px rgba(0, 0, 0, 0.22),
+        0 4px 16px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.97);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: clamp(2rem, 3.5vw, 3rem) clamp(1.5rem, 3vw, 2.5rem);
+    min-height: 100%;
+}
+
+/* ==========================
+   RESPONSIVE — TABLET
+========================== */
+
+@media (max-width: 991.98px) {
+    .login-page {
+        height: auto;
+        min-height: 100vh;
+        align-items: center;
+        padding: 2rem 0;
+    }
+
+    .login-page .row {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .login-card {
+        margin: 0 auto;
+        max-width: 480px;
+        width: 100%;
+    }
+
+    /* Stack register page on tablet */
+    body:has(.register-page) {
+        overflow: auto;
+    }
+
+    body:has(.register-page) #root {
+        overflow: auto;
+    }
+
+    .register-page {
+        height: auto;
+        min-height: 100vh;
+        flex-direction: column;
+        overflow-y: auto;
+    }
+
+    .register-hero {
         display: none;
     }
 
-    .login-card {
-        margin: 30px 0;
+    .register-form-panel {
+        width: 100%;
+        height: auto;
+        overflow-y: visible;
+        border-left: none;
+        background: transparent;
+        padding: 2rem 1rem;
+    }
+
+    .register-form-panel .login-card {
+        border-radius: 28px;
+        box-shadow: 0 0 0 1px rgba(0,0,0,0.05), 0 20px 50px rgba(0,0,0,0.18);
+        min-height: unset;
+        margin: 0 auto;
     }
 }
 
-@media (max-width: 576px) {
+/* ==========================
+   RESPONSIVE — MOBILE
+========================== */
 
-    .login-card {
-        padding: 25px;
-        border-radius: 15px;
+@media (max-width: 575.98px) {
+    .login-page > .login-container {
+        padding: 0 1rem;
     }
 
-    .hero-title {
-        font-size: 2rem;
+    .login-card {
+        border-radius: 16px;
+        padding: 1.5rem;
+    }
+
+    .stats-container {
+        gap: 0.5rem;
+    }
+
+    .register-form-panel {
+        padding: 1.5rem 0.75rem;
+    }
+
+    .register-form-panel .login-card {
+        padding: 1.5rem;
+        border-radius: 16px;
+    }
+}
+
+/* ==========================
+   REDUCED MOTION
+========================== */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
     }
 }

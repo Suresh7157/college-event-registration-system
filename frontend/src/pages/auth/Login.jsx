@@ -169,13 +169,13 @@ function Login() {
 
     <div className="login-page">
 
-        <div className="container">
+        <div className="container-fluid login-container">
 
-            <div className="row align-items-center min-vh-100">
+            <div className="row align-items-center">
 
                 {/* Left Section */}
 
-                <div className="col-lg-6 d-none d-lg-flex">
+                <div className="col-lg-7 d-none d-lg-flex">
 
                     <div className="hero-section">
 
@@ -226,7 +226,7 @@ function Login() {
 
                 {/* Right Section */}
 
-                <div className="col-lg-6">
+                <div className="col-lg-5">
 
                     <div className="login-card">
 
