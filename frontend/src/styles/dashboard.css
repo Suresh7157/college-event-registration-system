@@ -1,0 +1,57 @@
+/* ==========================
+   Student Dashboard
+========================== */
+
+body{
+    background:#f4f7fc;
+}
+
+.stat-card{
+    border:none;
+    border-radius:15px;
+    transition:0.3s;
+    box-shadow:0 5px 20px rgba(0,0,0,0.08);
+}
+
+.stat-card:hover{
+    transform:translateY(-5px);
+}
+
+.stat-card h2{
+    color:#0d6efd;
+    font-weight:bold;
+}
+
+.dashboard-card{
+    border:none;
+    border-radius:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.08);
+    transition:0.3s;
+}
+
+.dashboard-card:hover{
+    transform:translateY(-8px);
+}
+
+.dashboard-card .card-body{
+    padding:35px;
+}
+
+.icon{
+    font-size:45px;
+    margin-bottom:15px;
+}
+
+.dashboard-card h4{
+    margin-bottom:15px;
+    font-weight:600;
+}
+
+.dashboard-card p{
+    color:#666;
+    min-height:50px;
+}
+
+.dashboard-card .btn{
+    width:170px;
+}

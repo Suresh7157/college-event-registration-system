@@ -10,14 +10,9 @@ import Home from "../pages/Home/Home";
 import AvailableEvents from "../pages/StudentRegistration/AvailableEvents";
 import MyRegistrations from "../pages/StudentRegistration/MyRegistrations";
 import RegistrationStatus from "../pages/StudentRegistration/RegistrationStatus";
+import StudentDashboard from "../pages/StudentDashboard/StudentDashboard";
 
-function Dashboard() {
-  return (
-    <div className="container mt-5">
-      <h1>Dashboard</h1>
-    </div>
-  );
-}
+
 
 function AppRoutes() {
   return (
@@ -28,14 +23,15 @@ function AppRoutes() {
       <Route path="/register" element={<Register />} />
 
       {/* Dashboard */}
-      <Route
-        path="/dashboard"
+     <Route
+        path="/student/dashboard"
         element={
           <ProtectedRoute>
-            <Dashboard />
+            <StudentDashboard />
           </ProtectedRoute>
-        }
-      />
+      }
+    />
+      
 
       {/* Student Registration */}
       <Route
