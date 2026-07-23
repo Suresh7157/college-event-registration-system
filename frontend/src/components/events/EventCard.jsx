@@ -6,10 +6,11 @@ function EventCard({ event }) {
     <div className="card event-card shadow-sm h-100">
 
       <img
-        src={event.image}
-        className="card-img-top"
-        alt={event.title}
-      />
+    // src="https://via.placeholder.com/400x220?text=College+Event"
+    src="/src/assets/images/events/hero.avif"
+    className="card-img-top"
+    alt={event.title}
+/>
 
       <div className="card-body">
 

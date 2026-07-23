@@ -1,7 +1,32 @@
 import "./AvailableEvents.css";
 import EventGrid from "./EventGrid";
+import { useEffect, useState } from "react";
+import eventService from "../../services/eventService";
+function AvailableEvents({ events }) {
+//     const [events, setEvents] = useState([]);
 
-function AvailableEvents() {
+//     const fetchEvents = async () => {
+
+//     try {
+
+//         const response = await eventService.getAllEvents();
+
+//         setEvents(response.data.content);
+
+//     } catch (error) {
+
+//         console.error("Error loading events:", error);
+
+//     }
+
+// };
+
+// useEffect(() => {
+//     fetchEvents();
+// }, []);
+
+
+
   return (
     <section className="available-events py-5">
       <div className="container">
@@ -26,8 +51,7 @@ function AvailableEvents() {
 
         </div>
 
-        <EventGrid />
-
+        <EventGrid events={events} />
       </div>
     </section>
   );

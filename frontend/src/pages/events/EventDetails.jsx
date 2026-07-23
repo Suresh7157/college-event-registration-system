@@ -1,13 +1,30 @@
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import dummyEvents from "../../utils/dummyEvents";
+import eventService from "../../services/eventService";
 
 function EventDetails() {
 
     const { id } = useParams();
 
-    const event = dummyEvents.find(
-        (event) => event.id === Number(id)
-    );
+    const [event, setEvent] = useState(null);
+
+    useEffect(() => {
+    fetchEvent();
+}, []);
+
+const fetchEvent = async () => {
+    try {
+
+        const response = await eventService.getEventById(id);
+
+        setEvent(response.data);
+
+    } catch (error) {
+
+        console.error("Error:", error);
+
+    }
+};
 
     if (!event) {
         return (
@@ -24,7 +41,7 @@ function EventDetails() {
             <div className="card shadow">
 
                 <img
-                    src={event.image}
+                    src="/src/assets/images/events/hero.avif"
                     className="card-img-top"
                     alt={event.title}
                     style={{ maxHeight: "400px", objectFit: "cover" }}

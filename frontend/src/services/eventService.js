@@ -2,10 +2,25 @@ import axios from "axios";
 
 const API_URL = "http://localhost:8081/api/events";
 
+const api = axios.create({
+    baseURL: API_URL,
+});
+
+api.interceptors.request.use((config) => {
+
+    const token = localStorage.getItem("token");
+
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
+
+    return config;
+});
+
 const eventService = {
 
     getAllEvents: (page = 0, size = 10, sortBy = "eventDate", direction = "asc") =>
-        axios.get(API_URL, {
+        api.get("", {
             params: {
                 page,
                 size,
@@ -15,19 +30,19 @@ const eventService = {
         }),
 
     getEventById: (id) =>
-        axios.get(`${API_URL}/${id}`),
+        api.get(`/${id}`),
 
     createEvent: (eventData) =>
-        axios.post(API_URL, eventData),
+        api.post("", eventData),
 
     updateEvent: (id, eventData) =>
-        axios.put(`${API_URL}/${id}`, eventData),
+        api.put(`/${id}`, eventData),
 
     deleteEvent: (id) =>
-        axios.delete(`${API_URL}/${id}`),
+        api.delete(`/${id}`),
 
     searchEvents: (title) =>
-        axios.get(`${API_URL}/search`, {
+        api.get("/search", {
             params: { title }
         })
 

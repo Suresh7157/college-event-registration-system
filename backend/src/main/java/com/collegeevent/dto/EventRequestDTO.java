@@ -1,5 +1,6 @@
 package com.collegeevent.dto;
 
+import com.collegeevent.enums.EventStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -48,5 +49,8 @@ public class EventRequestDTO {
     @NotNull(message = "Registration deadline is required")
     @FutureOrPresent(message = "Registration deadline must be today or a future date")
     private LocalDate registrationDeadline;
+
+    @NotNull(message = "Status is required")
+    private EventStatus status;
 
 }

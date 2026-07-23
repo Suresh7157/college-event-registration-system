@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import eventService from "../../services/eventService";
 
 function CreateEvent() {
 
@@ -13,6 +15,8 @@ function CreateEvent() {
         status: ""
     });
 
+    const navigate = useNavigate();
+
     const handleChange = (e) => {
         setEvent({
             ...event,
@@ -20,13 +24,29 @@ function CreateEvent() {
         });
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const handleSubmit = async (e) => {
 
-        console.log(event);
+    e.preventDefault();
+
+    try {
+
+        await eventService.createEvent(event);
 
         alert("Event Created Successfully");
-    };
+
+        navigate("/manage-events");
+
+    } catch (error) {
+
+    console.error("Status:", error.response?.status);
+    console.error("Response:", error.response?.data);
+    console.error("Request Data:", event);
+
+    alert("Failed to create event");
+
+}
+
+};
 
     return (
         <div className="container py-5">

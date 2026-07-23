@@ -8,32 +8,74 @@ function ManageEvents() {
     const [events, setEvents] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [selectedEvent, setSelectedEvent] = useState(null);
+    const [searchTitle, setSearchTitle] = useState("");
 
-    const handleDeleteClick = (event) => {
-        setSelectedEvent(event);
-        setShowModal(true);
-    };
-
-    const confirmDelete = () => {
-        alert(`${selectedEvent.title} deleted successfully`);
-        setShowModal(false);
-    };
-
-    useEffect(() => {
-    fetchEvents();
-}, []);
-
-const fetchEvents = async () => {
+    const fetchEvents = async () => {
     try {
         const response = await eventService.getAllEvents();
 
-        // Spring Boot returns Page<EventResponseDTO>
+        console.log("Backend Response:", response);
+
         setEvents(response.data.content);
 
     } catch (error) {
         console.error("Error fetching events:", error);
     }
 };
+
+    const handleSearch = async () => {
+
+    try {
+
+        if (searchTitle.trim() === "") {
+
+            fetchEvents();
+            return;
+
+        }
+
+        const response = await eventService.searchEvents(searchTitle);
+
+        setEvents(response.data);
+
+    } catch (error) {
+
+        console.error("Search Error:", error);
+
+    }
+
+};
+
+    const handleDeleteClick = (event) => {
+        setSelectedEvent(event);
+        setShowModal(true);
+    };
+
+    const confirmDelete = async () => {
+
+    try {
+
+        await eventService.deleteEvent(selectedEvent.id);
+
+        alert(`${selectedEvent.title} deleted successfully`);
+
+        setShowModal(false);
+
+        fetchEvents();
+
+    } catch (error) {
+
+        console.error("Delete failed:", error);
+
+        alert("Failed to delete event");
+
+    }
+
+};
+    useEffect(() => {
+    fetchEvents();
+}, []);
+
 
     return (
 
@@ -58,6 +100,50 @@ const fetchEvents = async () => {
                 </Link>
 
             </div>
+
+            <div className="row mb-3">
+
+    <div className="col-md-8">
+
+        <input
+    type="text"
+    className="form-control"
+    placeholder="Search by Event Title..."
+    value={searchTitle}
+    onChange={(e) => setSearchTitle(e.target.value)}
+    onKeyDown={(e) => {
+        if (e.key === "Enter") {
+            handleSearch();
+        }
+    }}
+/>
+
+    </div>
+
+    <div className="col-md-4">
+
+        <button
+            className="btn btn-primary me-2"
+            onClick={handleSearch}
+        >
+            Search
+        </button>
+
+        <button
+            className="btn btn-secondary"
+            onClick={() => {
+
+                setSearchTitle("");
+                fetchEvents();
+
+            }}
+        >
+            Reset
+        </button>
+
+    </div>
+
+</div>
 
             <div className="card shadow-sm">
 
@@ -87,11 +173,12 @@ const fetchEvents = async () => {
 
                                     <td>
                                         <img
-                                            src={event.image}
-                                            alt={event.title}
-                                            width="70"
-                                            className="rounded"
-                                        />
+    // src="https://via.placeholder.com/70"
+    src="/src/assets/images/events/hero.avif"
+    alt={event.title}
+    width="70"
+    className="rounded"
+/>
                                     </td>
 
                                     <td>{event.title}</td>

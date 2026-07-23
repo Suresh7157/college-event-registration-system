@@ -1,21 +1,26 @@
-import dummyEvents from "../../utils/dummyEvents";
 import EventCard from "./EventCard";
 
-function EventGrid() {
-  return (
-    <div className="row g-4">
+function EventGrid({ events }) {
 
-      {dummyEvents.map((event) => (
-        <div
-          key={event.id}
-          className="col-lg-4 col-md-6"
-        >
-          <EventCard event={event} />
+    return (
+
+        <div className="row g-4">
+
+            {events.map((event) => (
+
+                <div
+                    key={event.id}
+                    className="col-lg-4 col-md-6"
+                >
+                    <EventCard event={event} />
+                </div>
+
+            ))}
+
         </div>
-      ))}
 
-    </div>
-  );
+    );
+
 }
 
 export default EventGrid;

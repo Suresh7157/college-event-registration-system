@@ -1,17 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import eventService from "../../services/eventService";
 
 function EditEvent() {
 
-    const [event, setEvent] = useState({
-        title: "Hackathon 2026",
-        description: "National Level Coding Competition",
-        venue: "Main Auditorium",
-        eventDate: "2026-07-24",
-        eventTime: "10:00",
-        capacity: 120,
-        registrationDeadline: "2026-07-20",
-        status: "UPCOMING"
-    });
+   const navigate = useNavigate();
+const { id } = useParams();
+
+const [event, setEvent] = useState({
+    title: "",
+    description: "",
+    venue: "",
+    eventDate: "",
+    eventTime: "",
+    capacity: "",
+    registrationDeadline: "",
+    status: ""
+});
 
     const handleChange = (e) => {
         setEvent({
@@ -20,13 +25,48 @@ function EditEvent() {
         });
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    useEffect(() => {
+    fetchEvent();
+}, []);
 
-        console.log(event);
+const fetchEvent = async () => {
+    try {
+        const response = await eventService.getEventById(id);
+        setEvent(response.data);
+    } catch (error) {
+
+    console.error("Status:", error.response?.status);
+    console.error("Response:", error.response?.data);
+    console.error("Request Data:", event);
+
+    alert("Failed to update event");
+
+}
+};
+
+    const handleSubmit = async (e) => {
+
+    e.preventDefault();
+
+    try {
+
+        await eventService.updateEvent(id, event);
 
         alert("Event Updated Successfully");
-    };
+
+        navigate("/manage-events");
+
+    } catch (error) {
+
+    console.error("Status:", error.response?.status);
+    console.error("Response:", error.response?.data);
+    console.error("Request Data:", event);
+
+    alert("Failed to update event");
+
+}
+
+};
 
     return (
         <div className="container py-5">
