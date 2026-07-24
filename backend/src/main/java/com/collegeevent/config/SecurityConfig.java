@@ -60,8 +60,19 @@ public class SecurityConfig {
                         // =========================
                         // STUDENT REGISTRATION
                         // =========================
-                        .requestMatchers("/api/registrations/**")
-                        .hasRole("STUDENT")
+                                .requestMatchers(HttpMethod.POST, "/api/registrations")
+                                .hasRole("STUDENT")
+
+// Student, Organizer and Admin can view registrations
+                                .requestMatchers(HttpMethod.GET, "/api/registrations")
+                                .hasAnyRole("STUDENT", "ORGANIZER", "ADMIN")
+
+                                .requestMatchers(HttpMethod.GET, "/api/registrations/**")
+                                .hasAnyRole("STUDENT", "ORGANIZER", "ADMIN")
+
+// Organizer and Admin can delete registrations
+                                .requestMatchers(HttpMethod.DELETE, "/api/registrations/**")
+                                .hasAnyRole("ORGANIZER", "ADMIN")
 
                         // =========================
                         // VOLUNTEER MANAGEMENT
