@@ -40,4 +40,6 @@ public class EventResponseDTO {
 
     private LocalDateTime updatedAt;
 
+    private String imageUrl;
+
 }

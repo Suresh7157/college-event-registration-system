@@ -2,6 +2,7 @@ package com.collegeevent.service.impl;
 
 import com.collegeevent.dto.EventRequestDTO;
 import com.collegeevent.dto.EventResponseDTO;
+import com.collegeevent.enums.EventStatus;
 import com.collegeevent.service.EventService;
 import org.springframework.stereotype.Service;
 import com.collegeevent.mapper.EventMapper;
@@ -18,6 +19,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+import com.collegeevent.service.FileStorageService;
+import org.springframework.web.multipart.MultipartFile;
+import java.io.IOException;
 import lombok.RequiredArgsConstructor;
 import java.util.List;
 
@@ -29,10 +33,17 @@ public class EventServiceImpl implements EventService {
 
     private final EventMapper eventMapper;
 
+    private final FileStorageService fileStorageService;
+
     @Override
-    public EventResponseDTO createEvent(EventRequestDTO requestDTO) {
+    public EventResponseDTO createEvent(EventRequestDTO requestDTO,
+                                        MultipartFile image) throws IOException {
 
         Event event = eventMapper.toEntity(requestDTO);
+
+        String imageName = fileStorageService.saveFile(image);
+
+        event.setImageUrl(imageName);
 
         Event savedEvent = eventRepository.save(event);
 
@@ -101,6 +112,17 @@ public class EventServiceImpl implements EventService {
     public List<EventResponseDTO> searchEvents(String title) {
 
         List<Event> events = eventRepository.findByTitleContainingIgnoreCase(title);
+
+        return events.stream()
+                .map(eventMapper::toResponseDTO)
+                .toList();
+
+    }
+
+    @Override
+    public List<EventResponseDTO> getEventsByStatus(EventStatus status) {
+
+        List<Event> events = eventRepository.findByStatus(status);
 
         return events.stream()
                 .map(eventMapper::toResponseDTO)

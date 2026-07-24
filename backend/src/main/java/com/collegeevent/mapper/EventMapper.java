@@ -35,6 +35,7 @@ public class EventMapper {
                 .title(event.getTitle())
                 .description(event.getDescription())
                 .venue(event.getVenue())
+                .imageUrl(event.getImageUrl())
                 .eventDate(event.getEventDate())
                 .eventTime(event.getEventTime())
                 .capacity(event.getCapacity())
