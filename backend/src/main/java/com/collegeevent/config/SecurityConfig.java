@@ -38,7 +38,12 @@ public class SecurityConfig {
                         // =========================
                         // PUBLIC APIs
                         // =========================
-                        .requestMatchers("/api/auth/**").permitAll()
+                                .requestMatchers(
+                                        "/api/auth/login",
+                                        "/api/auth/register"
+                                ).permitAll()
+                                .requestMatchers("/api/auth/me")
+                                .authenticated()
                         .requestMatchers("/error").permitAll()
 
                         // =========================
@@ -78,21 +83,24 @@ public class SecurityConfig {
                         // VOLUNTEER MANAGEMENT
                         // =========================
 
-                        // Student can apply for volunteer
-                        .requestMatchers(HttpMethod.POST, "/api/volunteers")
-                        .hasRole("STUDENT")
+                                // Student can apply as a volunteer
+                                .requestMatchers(HttpMethod.POST, "/api/volunteers")
+                                .hasRole("STUDENT")
 
-                        // Admin & Volunteer can view
-                        .requestMatchers(HttpMethod.GET, "/api/volunteers/**")
-                        .hasAnyRole("ADMIN", "VOLUNTEER")
+                                // Organizer and Admin can view volunteer applications
+                                .requestMatchers(HttpMethod.GET, "/api/volunteers")
+                                .hasAnyRole("ORGANIZER", "ADMIN")
 
-                        // Only Admin can update
-                        .requestMatchers(HttpMethod.PUT, "/api/volunteers/**")
-                        .hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.GET, "/api/volunteers/**")
+                                .hasAnyRole("ORGANIZER", "ADMIN")
 
-                        // Only Admin can delete
-                        .requestMatchers(HttpMethod.DELETE, "/api/volunteers/**")
-                        .hasRole("ADMIN")
+                                // Organizer and Admin can approve/reject applications
+                                .requestMatchers(HttpMethod.PUT, "/api/volunteers/**")
+                                .hasAnyRole("ORGANIZER", "ADMIN")
+
+                                // Organizer and Admin can delete volunteer applications
+                                .requestMatchers(HttpMethod.DELETE, "/api/volunteers/**")
+                                .hasAnyRole("ORGANIZER", "ADMIN")
 
                         // =========================
                         // ALL OTHER APIs
