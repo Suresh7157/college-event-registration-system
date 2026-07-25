@@ -5,8 +5,8 @@ import eventService from "../../services/eventService";
 function EventDetails() {
 
     const { id } = useParams();
-
     const [event, setEvent] = useState(null);
+    const [showFullImg, setShowFullImg] = useState(false);
 
     useEffect(() => {
     fetchEvent();
@@ -34,6 +34,10 @@ const fetchEvent = async () => {
         );
     }
 
+    const imgSrc = event.imageUrl
+        ? `http://localhost:8081/uploads/${event.imageUrl}`
+        : "https://png.pngtree.com/png-clipart/20221209/ourmid/pngtree-coming-soon-banner-design-png-image_6517859.png";
+
     return (
 
         <div className="container py-5">
@@ -41,10 +45,11 @@ const fetchEvent = async () => {
             <div className="card shadow">
 
                 <img
-                    src="/src/assets/images/events/hero.avif"
+                    src={imgSrc}
                     className="card-img-top"
                     alt={event.title}
-                    style={{ maxHeight: "400px", objectFit: "cover" }}
+                    style={{ maxHeight: "400px", objectFit: "cover", cursor: "pointer" }}
+                    onClick={() => setShowFullImg(true)}
                 />
 
                 <div className="card-body">
@@ -96,6 +101,24 @@ const fetchEvent = async () => {
                 </div>
 
             </div>
+
+            {showFullImg && (
+                <div
+                    onClick={() => setShowFullImg(false)}
+                    style={{
+                        position: "fixed", inset: 0,
+                        background: "rgba(0,0,0,0.85)",
+                        display: "flex", alignItems: "center", justifyContent: "center",
+                        zIndex: 9999, cursor: "zoom-out"
+                    }}
+                >
+                    <img
+                        src={imgSrc}
+                        alt={event.title}
+                        style={{ maxHeight: "90vh", maxWidth: "90vw", borderRadius: "8px" }}
+                    />
+                </div>
+            )}
 
         </div>
 

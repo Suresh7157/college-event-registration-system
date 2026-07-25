@@ -10,7 +10,7 @@ function EventGrid({ events }) {
 
                 <div
                     key={event.id}
-                    className="col-lg-4 col-md-6"
+                    className="col-xl-3 col-lg-4 col-md-6"
                 >
                     <EventCard event={event} />
                 </div>

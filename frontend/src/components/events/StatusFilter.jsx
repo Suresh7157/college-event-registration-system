@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./StatusFilter.css";
 
-function StatusFilter() {
+function StatusFilter({ onFilter }) {
 
     const statuses = [
         "All",
@@ -12,6 +12,14 @@ function StatusFilter() {
     ];
 
     const [selected, setSelected] = useState("All");
+
+    const handleClick = (status) => {
+
+        setSelected(status);
+
+        onFilter(status);
+
+    };
 
     return (
 
@@ -28,7 +36,7 @@ function StatusFilter() {
                                 ? "btn-primary"
                                 : "btn-outline-primary"
                         } rounded-pill`}
-                        onClick={() => setSelected(status)}
+                        onClick={() => handleClick(status)}
                     >
                         {status}
                     </button>

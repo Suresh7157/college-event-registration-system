@@ -29,11 +29,18 @@ const eventService = {
             }
         }),
 
+    getEventsByStatus: (status) =>
+    api.get("/status", {
+        params: { status }
+    }),
+
     getEventById: (id) =>
         api.get(`/${id}`),
 
-    createEvent: (eventData) =>
-        api.post("", eventData),
+    createEvent: (formData) =>
+        api.post("", formData, {
+            headers: { "Content-Type": "multipart/form-data" }
+        }),
 
     updateEvent: (id, eventData) =>
         api.put(`/${id}`, eventData),
@@ -45,6 +52,8 @@ const eventService = {
         api.get("/search", {
             params: { title }
         })
+
+    
 
 };
 

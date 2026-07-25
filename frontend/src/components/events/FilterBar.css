@@ -1,3 +1,14 @@
-.filter-bar{
-    background:#f8f9fa;
+.filter-combined-card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 20px 24px;
+    box-shadow: 0 2px 16px rgba(37, 99, 235, 0.08);
+}
+
+.filter-pill:hover {
+    background: #2563eb !important;
+    color: #fff !important;
+    border-color: transparent !important;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.22) !important;
+    transform: translateY(-1px);
 }

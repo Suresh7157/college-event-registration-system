@@ -1,47 +1,75 @@
+import { useState } from "react";
 import "./SearchBar.css";
 
-function SearchBar() {
-  return (
-    <section className="search-section">
-      <div className="container">
+function SearchBar({ onSearch }) {
 
-        <div className="search-card shadow">
+    const [title, setTitle] = useState("");
 
-          <div className="row g-3 align-items-center">
+    const handleSearch = () => {
+        onSearch(title);
+    };
 
-            <div className="col-lg-10">
+    return (
+        <section className="search-section">
+            <div className="container">
 
-              <div className="input-group">
+                <div className="search-card shadow">
 
-                <span className="input-group-text">
-                  <i className="bi bi-search"></i>
-                </span>
+                    <div className="row g-3 align-items-center">
 
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Search by event title..."
-                />
+                        <div className="col-lg-10">
 
-              </div>
+                            <div className="input-group">
+
+                                <span className="input-group-text">
+                                    <i className="bi bi-search"></i>
+                                </span>
+
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Search by event title..."
+                                    value={title}
+                                    onChange={(e) => {
+
+    const value = e.target.value;
+
+    setTitle(value);
+
+    if (value.trim() === "") {
+        onSearch("");
+    }
+
+}}
+                                    onKeyDown={(e) => {
+                                        if (e.key === "Enter") {
+                                            handleSearch();
+                                        }
+                                    }}
+                                />
+
+                            </div>
+
+                        </div>
+
+                        <div className="col-lg-2 d-grid">
+
+                            <button
+                                className="btn btn-primary"
+                                onClick={handleSearch}
+                            >
+                                Search
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
 
             </div>
-
-            <div className="col-lg-2 d-grid">
-
-              <button className="btn btn-primary">
-                Search
-              </button>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-  );
+        </section>
+    );
 }
 
 export default SearchBar;

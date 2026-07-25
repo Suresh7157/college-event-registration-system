@@ -15,6 +15,9 @@ function CreateEvent() {
         status: ""
     });
 
+    const [poster, setPoster] = useState(null);
+    const [posterPreview, setPosterPreview] = useState(null);
+
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -24,13 +27,23 @@ function CreateEvent() {
         });
     };
 
+    const handlePosterChange = (e) => {
+        const file = e.target.files[0];
+        setPoster(file);
+        setPosterPreview(file ? URL.createObjectURL(file) : null);
+    };
+
     const handleSubmit = async (e) => {
 
     e.preventDefault();
 
     try {
 
-        await eventService.createEvent(event);
+        const formData = new FormData();
+        Object.entries(event).forEach(([key, value]) => formData.append(key, value));
+        if (poster) formData.append("image", poster);
+
+        await eventService.createEvent(formData);
 
         alert("Event Created Successfully");
 
@@ -202,6 +215,24 @@ function CreateEvent() {
 
                             </div>
 
+                        </div>
+
+                        <div className="mb-3">
+                            <label className="form-label">Choose Poster</label>
+                            <input
+                                type="file"
+                                className="form-control"
+                                accept="image/*"
+                                onChange={handlePosterChange}
+                            />
+                            {posterPreview && (
+                                <img
+                                    src={posterPreview}
+                                    alt="Poster Preview"
+                                    className="mt-2 img-fluid rounded"
+                                    style={{ maxHeight: "200px", objectFit: "cover" }}
+                                />
+                            )}
                         </div>
 
                         <button className="btn btn-primary">

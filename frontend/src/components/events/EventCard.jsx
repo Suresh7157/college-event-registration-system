@@ -3,19 +3,20 @@ import { Link } from "react-router-dom";
 
 function EventCard({ event }) {
   return (
-    <div className="card event-card shadow-sm h-100">
+    <div className="card event-card h-100">
 
       <img
-    // src="https://via.placeholder.com/400x220?text=College+Event"
-    src="/src/assets/images/events/hero.avif"
-    className="card-img-top"
-    alt={event.title}
-/>
+        src={event.imageUrl
+            ? `http://localhost:8081/uploads/${event.imageUrl}`
+            : "https://png.pngtree.com/png-clipart/20221209/ourmid/pngtree-coming-soon-banner-design-png-image_6517859.png"}
+        className="card-img-top event-card-img"
+        alt={event.title}
+      />
 
-      <div className="card-body">
+      <div className="card-body py-2 px-3">
 
         <span
-          className={`badge mb-2 ${
+          className={`badge mb-1 ${
             event.status === "UPCOMING"
               ? "bg-primary"
               : event.status === "ACTIVE"
@@ -24,45 +25,35 @@ function EventCard({ event }) {
               ? "bg-secondary"
               : "bg-danger"
           }`}
+          style={{ fontSize: "0.7rem" }}
         >
           {event.status}
         </span>
 
-        <h5 className="card-title fw-bold">
-          {event.title}
-        </h5>
+        <h5 className="card-title fw-bold mb-1">{event.title}</h5>
 
-        <p className="text-muted mb-2">
-          <i className="bi bi-calendar-event me-2"></i>
-          {event.eventDate}
+        <p className="text-muted mb-1" style={{ fontSize: "0.8rem" }}>
+          <i className="bi bi-calendar-event me-1"></i>{event.eventDate}
         </p>
 
-        <p className="text-muted mb-2">
-          <i className="bi bi-clock me-2"></i>
-          {event.eventTime}
+        <p className="text-muted mb-1" style={{ fontSize: "0.8rem" }}>
+          <i className="bi bi-clock me-1"></i>{event.eventTime}
         </p>
 
-        <p className="text-muted mb-2">
-          <i className="bi bi-geo-alt me-2"></i>
-          {event.venue}
+        <p className="text-muted mb-1" style={{ fontSize: "0.8rem" }}>
+          <i className="bi bi-geo-alt me-1"></i>{event.venue}
         </p>
 
-        <p className="text-muted">
-          <i className="bi bi-people me-2"></i>
-          Capacity: {event.capacity}
+        <p className="text-muted mb-0" style={{ fontSize: "0.8rem" }}>
+          <i className="bi bi-people me-1"></i>Capacity: {event.capacity}
         </p>
 
       </div>
 
-      <div className="card-footer bg-white border-0">
-
-        <Link
-          to={`/events/${event.id}`}
-          className="btn btn-primary w-100"
-        >
+      <div className="card-footer bg-white border-0 pb-2 px-3 pt-1">
+        <Link to={`/events/${event.id}`} className="btn btn-primary w-100">
           View Details
         </Link>
-
       </div>
 
     </div>
