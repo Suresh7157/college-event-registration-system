@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .home-container {
     height: 100vh;
     display: flex;
@@ -115,4 +116,8 @@
 .event-image{
     height:220px;
     object-fit:cover;
+=======
+body {
+  background-color: #f8f9fa;
+>>>>>>> origin/feature/event-management-ui
 }

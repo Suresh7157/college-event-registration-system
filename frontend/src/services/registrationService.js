@@ -1,47 +1,42 @@
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:8080/api";
+const API = axios.create({
+  baseURL: "http://localhost:8080/api",
+});
 
-export const getAvailableEvents = () => {
-    return axios.get(`${API_BASE_URL}/events`);
-};
+// Attach JWT token automatically
+API.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
 
-export const registerForEvent = (eventId) => {
-    return axios.post(`${API_BASE_URL}/registrations/${eventId}`);
-};
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
 
-export const getMyRegistrations = () => {
-    return axios.get(`${API_BASE_URL}/registrations`);
-};
+  return config;
+});
 
-export const cancelRegistration = (registrationId) => {
-    return axios.delete(
-        `${API_BASE_URL}/registrations/${registrationId}`
-    );
-};
-
-export const getRegistrationStatus = () => {
-    return axios.get(`${API_BASE_URL}/registrations/status`);
-};import axios from "axios";
-
-const API = "http://localhost:8080/api";
-
+// Event APIs
 export const getEvents = () => {
-    return axios.get(`${API}/events`);
+  return API.get("/events");
 };
 
+// Registration APIs
 export const registerStudent = (registrationData) => {
-    return axios.post(`${API}/registrations`, registrationData);
+  return API.post("/registrations", registrationData);
 };
 
 export const getRegistrations = () => {
-    return axios.get(`${API}/registrations`);
+  return API.get("/registrations");
 };
 
 export const getRegistration = (id) => {
-    return axios.get(`${API}/registrations/${id}`);
+  return API.get(`/registrations/${id}`);
 };
 
 export const deleteRegistration = (id) => {
-    return axios.delete(`${API}/registrations/${id}`);
+  return API.delete(`/registrations/${id}`);
+};
+
+export const getRegistrationStatus = () => {
+  return API.get("/registrations/status");
 };

@@ -9,6 +9,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
+// Theme
+import "./assets/styles/theme.css";
+
+// Existing styles
 import "./styles/variables.css";
 import "./styles/common.css";
 import "./index.css";

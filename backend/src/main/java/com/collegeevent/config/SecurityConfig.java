@@ -26,7 +26,6 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-
                 // Enable CORS
                 .cors(Customizer.withDefaults())
 
