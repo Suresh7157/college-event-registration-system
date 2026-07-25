@@ -7,7 +7,7 @@ function EventCard({ event }) {
 
       <img
         src={event.imageUrl
-            ? `http://localhost:8081/uploads/${event.imageUrl}`
+            ? `http://localhost:8080/uploads/${event.imageUrl}`
             : "https://png.pngtree.com/png-clipart/20221209/ourmid/pngtree-coming-soon-banner-design-png-image_6517859.png"}
         className="card-img-top event-card-img"
         alt={event.title}

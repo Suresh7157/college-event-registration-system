@@ -15,12 +15,14 @@ API.interceptors.request.use((config) => {
   return config;
 });
 
-// Event APIs
+// ================= Event APIs =================
+
 export const getEvents = () => {
   return API.get("/events");
 };
 
-// Registration APIs
+// ================= Registration APIs =================
+
 export const registerStudent = (registrationData) => {
   return API.post("/registrations", registrationData);
 };
@@ -40,3 +42,16 @@ export const deleteRegistration = (id) => {
 export const getRegistrationStatus = () => {
   return API.get("/registrations/status");
 };
+
+// ================= Default Export =================
+
+const registrationService = {
+  getEvents,
+  registerStudent,
+  getRegistrations,
+  getRegistration,
+  deleteRegistration,
+  getRegistrationStatus,
+};
+
+export default registrationService;

@@ -6,7 +6,7 @@ import PasswordField from "../../components/common/PasswordField";
 import PrimaryButton from "../../components/common/PrimaryButton";
 import AlertMessage from "../../components/common/AlertMessage";
 import Loader from "../../components/common/Loader";
-
+import { useAuth } from "../../context/AuthContext";
 import { login } from "../../services/authService";
 
 import heroImage from "../../assets/images/hero.png";
@@ -16,6 +16,7 @@ import "../../styles/auth.css";
 function Login() {
 
     const navigate = useNavigate();
+    const { login: authLogin } = useAuth();
 
     const [formData, setFormData] = useState({
         email: "",
@@ -108,17 +109,9 @@ function Login() {
                 }
             */
 
-            localStorage.setItem("token", response.data.token);
-
-            localStorage.setItem("role", response.data.role);
-
-            localStorage.setItem(
-                "user",
-                JSON.stringify(response.data)
-            );
+            authLogin(response.data);
 
             setMessageType("success");
-
             setMessage("Login Successful!");
 
             setTimeout(() => {
@@ -130,7 +123,7 @@ function Login() {
                         break;
 
                     case "ORGANIZER":
-                        navigate("/organizer/dashboard");
+                        navigate("/manage-events");
                         break;
 
                     case "VOLUNTEER":
