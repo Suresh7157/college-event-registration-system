@@ -22,7 +22,7 @@ public class EventMapper {
                 .eventTime(requestDTO.getEventTime())
                 .capacity(requestDTO.getCapacity())
                 .registrationDeadline(requestDTO.getRegistrationDeadline())
-                .status(EventStatus.UPCOMING)
+                .status(requestDTO.getStatus())
                 .createdAt(LocalDateTime.now())
                 .updatedAt(LocalDateTime.now())
                 .build();
@@ -35,6 +35,7 @@ public class EventMapper {
                 .title(event.getTitle())
                 .description(event.getDescription())
                 .venue(event.getVenue())
+                .imageUrl(event.getImageUrl())
                 .eventDate(event.getEventDate())
                 .eventTime(event.getEventTime())
                 .capacity(event.getCapacity())

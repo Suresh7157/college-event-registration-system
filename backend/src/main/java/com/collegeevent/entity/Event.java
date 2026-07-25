@@ -28,6 +28,8 @@ import lombok.Setter;
 public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+
     private Long id;
     private String title;
 
@@ -49,5 +51,8 @@ public class Event {
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
+
+    @Column(name = "image_url")
+    private String imageUrl;
 }
 
