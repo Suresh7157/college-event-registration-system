@@ -14,8 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
-
 @Service
 @RequiredArgsConstructor
 public class AdminServiceImpl implements AdminService {
@@ -37,6 +35,7 @@ public class AdminServiceImpl implements AdminService {
 
         return response;
     }
+
     @Override
     public List<UserResponse> getAllUsers() {
 
@@ -52,13 +51,13 @@ public class AdminServiceImpl implements AdminService {
                         user.getRole()
                 ))
                 .toList();
-
     }
+
     @Override
     public void deleteUser(Long id) {
-
         userRepository.deleteById(id);
     }
+
     @Override
     public List<UserResponse> searchUsers(String keyword) {
 
@@ -75,6 +74,7 @@ public class AdminServiceImpl implements AdminService {
                 ))
                 .toList();
     }
+
     @Override
     public List<EventResponseDTO> getAllEvents() {
 
@@ -92,9 +92,11 @@ public class AdminServiceImpl implements AdminService {
                         .status(event.getStatus())
                         .createdAt(event.getCreatedAt())
                         .updatedAt(event.getUpdatedAt())
+                        .imageUrl(event.getImageUrl())
                         .build())
                 .toList();
     }
+
     @Override
     public List<EventResponseDTO> searchEvents(String keyword) {
 
@@ -112,9 +114,11 @@ public class AdminServiceImpl implements AdminService {
                         .status(event.getStatus())
                         .createdAt(event.getCreatedAt())
                         .updatedAt(event.getUpdatedAt())
+                        .imageUrl(event.getImageUrl())
                         .build())
                 .toList();
     }
+
     @Override
     public List<UserResponse> getAllOrganizers() {
 

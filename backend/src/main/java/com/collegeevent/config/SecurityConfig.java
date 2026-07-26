@@ -41,11 +41,8 @@ public class SecurityConfig {
                         .requestMatchers("/error").permitAll()
 
                         // Admin APIs
-                        .requestMatchers(
-                                "/api/dashboard/**",
-                                "/api/reports/**",
-                                "/api/analytics/**"
-                        ).hasRole("ADMIN")
+                        .requestMatchers("/api/admin/**")
+                        .hasRole("ADMIN")
 
                         // Event Management
                         .requestMatchers("/api/events/**")
