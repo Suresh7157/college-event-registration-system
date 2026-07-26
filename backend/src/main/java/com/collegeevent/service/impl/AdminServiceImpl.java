@@ -3,6 +3,7 @@ package com.collegeevent.service.impl;
 import com.collegeevent.dto.DashboardResponse;
 import com.collegeevent.dto.EventResponseDTO;
 import com.collegeevent.dto.UserResponse;
+import com.collegeevent.enums.Role;
 import com.collegeevent.repository.EventRepository;
 import com.collegeevent.repository.RegistrationRepository;
 import com.collegeevent.repository.UserRepository;
@@ -113,5 +114,44 @@ public class AdminServiceImpl implements AdminService {
                         .updatedAt(event.getUpdatedAt())
                         .build())
                 .toList();
+    }
+    @Override
+    public List<UserResponse> getAllOrganizers() {
+
+        return userRepository.findByRole(Role.ORGANIZER)
+                .stream()
+                .map(user -> new UserResponse(
+                        user.getId(),
+                        user.getFullName(),
+                        user.getEmail(),
+                        user.getPhoneNumber(),
+                        user.getDepartment(),
+                        user.getYear(),
+                        user.getRole()
+                ))
+                .toList();
+    }
+
+    @Override
+    public List<UserResponse> searchOrganizers(String keyword) {
+
+        return userRepository
+                .findByRoleAndFullNameContainingIgnoreCase(Role.ORGANIZER, keyword)
+                .stream()
+                .map(user -> new UserResponse(
+                        user.getId(),
+                        user.getFullName(),
+                        user.getEmail(),
+                        user.getPhoneNumber(),
+                        user.getDepartment(),
+                        user.getYear(),
+                        user.getRole()
+                ))
+                .toList();
+    }
+
+    @Override
+    public void deleteOrganizer(Long id) {
+        userRepository.deleteById(id);
     }
 }

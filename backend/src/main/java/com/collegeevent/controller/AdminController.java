@@ -51,5 +51,24 @@ public class AdminController {
 
         return ResponseEntity.ok(adminService.searchEvents(keyword));
     }
+    @GetMapping("/volunteers")
+    public ResponseEntity<List<UserResponse>> getAllOrganizers() {
+        return ResponseEntity.ok(adminService.getAllOrganizers());
+    }
+
+    @GetMapping("/volunteers/search")
+    public ResponseEntity<List<UserResponse>> searchOrganizers(
+            @RequestParam String keyword) {
+
+        return ResponseEntity.ok(adminService.searchOrganizers(keyword));
+    }
+
+    @DeleteMapping("/volunteer/{id}")
+    public ResponseEntity<String> deleteOrganizer(@PathVariable Long id) {
+
+        adminService.deleteOrganizer(id);
+
+        return ResponseEntity.ok("Organizer deleted successfully");
+    }
 
 }
