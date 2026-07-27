@@ -6,7 +6,7 @@ import com.collegeevent.dto.RegisterRequest;
 import com.collegeevent.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import com.collegeevent.dto.UserProfileResponse;
+
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
@@ -34,10 +34,5 @@ public class AuthenticationController {
         System.out.println("====================================");
 
         return userService.login(request);
-    }
-
-    @GetMapping("/me")
-    public UserProfileResponse getCurrentUserProfile() {
-        return userService.getCurrentUserProfile();
     }
 }

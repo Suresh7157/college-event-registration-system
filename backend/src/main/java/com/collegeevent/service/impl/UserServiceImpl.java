@@ -3,7 +3,6 @@ package com.collegeevent.service.impl;
 import com.collegeevent.dto.AuthResponse;
 import com.collegeevent.dto.LoginRequest;
 import com.collegeevent.dto.RegisterRequest;
-import com.collegeevent.dto.UserProfileResponse;
 import com.collegeevent.entity.User;
 import com.collegeevent.enums.Role;
 import com.collegeevent.repository.UserRepository;
@@ -13,8 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 @Service
 @RequiredArgsConstructor
@@ -108,29 +105,6 @@ public class UserServiceImpl implements UserService {
                 .token(token)
                 .role(user.getRole().name())
                 .message("Login Successful")
-                .build();
-    }
-
-    @Override
-    public UserProfileResponse getCurrentUserProfile() {
-
-        Authentication authentication =
-                SecurityContextHolder.getContext().getAuthentication();
-
-        String email = authentication.getName();
-
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
-        return UserProfileResponse.builder()
-                .id(user.getId())
-                .fullName(user.getFullName())
-                .email(user.getEmail())
-                .phoneNumber(user.getPhoneNumber())
-                .department(user.getDepartment())
-                .year(user.getYear())
-                .role(user.getRole())
-                .createdAt(user.getCreatedAt())
                 .build();
     }
 }

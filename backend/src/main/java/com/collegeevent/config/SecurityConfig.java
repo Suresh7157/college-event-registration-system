@@ -10,6 +10,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.List;
 
 @Configuration
 @RequiredArgsConstructor
@@ -21,72 +26,110 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
+
+                // Disable CSRF
                 .csrf(csrf -> csrf.disable())
 
+                // Enable CORS
                 .cors(Customizer.withDefaults())
 
+                // Stateless Session
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
 
+                // Authorization Rules
                 .authorizeHttpRequests(auth -> auth
 
-                        // Public APIs
-                        .requestMatchers(
-                                "/api/auth/login",
-                                "/api/auth/register"
-                        ).permitAll()
-
-                        .requestMatchers("/api/auth/me").authenticated()
+                        // =========================
+                        // PUBLIC APIs
+                        // =========================
+                        .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/error").permitAll()
 
-                        // Admin APIs
-                        .requestMatchers("/api/admin/**")
-                        .hasRole("ADMIN")
+                        // =========================
+                        // ADMIN APIs
+                        // =========================
+                        .requestMatchers(
+                                "/api/dashboard/**",
+                                "/api/reports/**",
+                                "/api/analytics/**"
+                        ).hasRole("ADMIN")
 
-                        // Event Management
+                        // =========================
+                        // EVENT MANAGEMENT
+                        // =========================
                         .requestMatchers("/api/events/**")
                         .hasAnyRole("ADMIN", "ORGANIZER")
 
-                        // Student Registration
-                        .requestMatchers(HttpMethod.POST, "/api/registrations")
+                        // =========================
+                        // STUDENT REGISTRATION
+                        // =========================
+                        .requestMatchers("/api/registrations/**")
                         .hasRole("STUDENT")
 
-                        .requestMatchers(HttpMethod.GET, "/api/registrations")
-                        .hasAnyRole("STUDENT", "ORGANIZER", "ADMIN")
+                        // =========================
+                        // VOLUNTEER MANAGEMENT
+                        // =========================
 
-                        .requestMatchers(HttpMethod.GET, "/api/registrations/**")
-                        .hasAnyRole("STUDENT", "ORGANIZER", "ADMIN")
-
-                        .requestMatchers(HttpMethod.DELETE, "/api/registrations/**")
-                        .hasAnyRole("ORGANIZER", "ADMIN")
-
-                        // Volunteer Management
+                        // Student can apply
                         .requestMatchers(HttpMethod.POST, "/api/volunteers")
                         .hasRole("STUDENT")
 
-                        .requestMatchers(HttpMethod.GET, "/api/volunteers")
-                        .hasAnyRole("ORGANIZER", "ADMIN")
-
+                        // Admin & Volunteer can view
                         .requestMatchers(HttpMethod.GET, "/api/volunteers/**")
-                        .hasAnyRole("ORGANIZER", "ADMIN")
+                        .hasAnyRole("ADMIN", "VOLUNTEER")
 
+                        // Admin can update
                         .requestMatchers(HttpMethod.PUT, "/api/volunteers/**")
-                        .hasAnyRole("ORGANIZER", "ADMIN")
+                        .hasRole("ADMIN")
 
+                        // Admin can delete
                         .requestMatchers(HttpMethod.DELETE, "/api/volunteers/**")
-                        .hasAnyRole("ORGANIZER", "ADMIN")
+                        .hasRole("ADMIN")
 
+                        // Any other request
                         .anyRequest().authenticated()
                 )
 
+                // JWT Filter
                 .addFilterBefore(
                         jwtAuthenticationFilter,
                         UsernamePasswordAuthenticationFilter.class
                 )
 
+                // HTTP Basic
                 .httpBasic(Customizer.withDefaults());
 
         return http.build();
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+
+        CorsConfiguration configuration = new CorsConfiguration();
+
+        configuration.setAllowedOrigins(List.of(
+                "http://localhost:5173"
+        ));
+
+        configuration.setAllowedMethods(List.of(
+                "GET",
+                "POST",
+                "PUT",
+                "DELETE",
+                "OPTIONS"
+        ));
+
+        configuration.setAllowedHeaders(List.of("*"));
+
+        configuration.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source =
+                new UrlBasedCorsConfigurationSource();
+
+        source.registerCorsConfiguration("/**", configuration);
+
+        return source;
     }
 }
