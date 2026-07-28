@@ -1,31 +1,56 @@
+import { FaBell, FaSearch, FaUserCircle } from "react-icons/fa";
+
 function Navbar() {
-
     return (
+        <nav className="navbar">
 
-        <div className="admin-navbar">
+            {/* Left Side */}
+            <div className="navbar-left">
 
-            <h3 className="mb-0">
-                Admin Dashboard
-            </h3>
+                <h3>Admin Dashboard</h3>
 
-            <div className="d-flex align-items-center">
+                <div className="search-box">
 
-                <i className="bi bi-bell fs-4 me-4"></i>
+                    <FaSearch className="search-icon" />
 
-                <div className="d-flex align-items-center">
-
-                    <i className="bi bi-person-circle fs-2 me-2"></i>
-
-                    Administrator
+                    <input
+                        type="text"
+                        placeholder="Search..."
+                    />
 
                 </div>
 
             </div>
 
-        </div>
+            {/* Right Side */}
+            <div className="navbar-right">
 
+                <button className="notification-btn">
+
+                    <FaBell />
+
+                    <span className="notification-badge">3</span>
+
+                </button>
+
+                <div className="profile">
+
+                    <FaUserCircle className="profile-icon" />
+
+                    <div>
+
+                        <h6>Administrator</h6>
+
+                        <small>System Admin</small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </nav>
     );
-
 }
 
 export default Navbar;

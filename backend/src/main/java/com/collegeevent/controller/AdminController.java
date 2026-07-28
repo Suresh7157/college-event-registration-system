@@ -8,7 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/admin")
@@ -20,9 +22,7 @@ public class AdminController {
 
     @GetMapping("/dashboard")
     public ResponseEntity<DashboardResponse> getDashboard() {
-
         return ResponseEntity.ok(adminService.getDashboardStatistics());
-
     }
     @GetMapping("/users")
     public ResponseEntity<List<UserResponse>> getAllUsers() {
@@ -70,5 +70,6 @@ public class AdminController {
 
         return ResponseEntity.ok("Organizer deleted successfully");
     }
+
 
 }

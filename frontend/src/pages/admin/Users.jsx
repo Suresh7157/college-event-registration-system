@@ -1,45 +1,35 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getAllUsers } from "../../services/AdminService";
 
 function Users() {
 
-    const [users] = useState([
-        {
-            id: 1,
-            fullName: "Tabrez Shaik",
-            email: "tabrez@gmail.com",
-            phoneNumber: "9876543210",
-            department: "CST",
-            year: "4th Year",
-            role: "ADMIN"
-        },
-        {
-            id: 2,
-            fullName: "Rahul Kumar",
-            email: "rahul@gmail.com",
-            phoneNumber: "9123456789",
-            department: "CSE",
-            year: "3rd Year",
-            role: "STUDENT"
-        },
-        {
-            id: 3,
-            fullName: "Priya Sharma",
-            email: "priya@gmail.com",
-            phoneNumber: "9988776655",
-            department: "ECE",
-            year: "2nd Year",
-            role: "ORGANIZER"
-        },
-        {
-            id: 4,
-            fullName: "Aman Reddy",
-            email: "aman@gmail.com",
-            phoneNumber: "9871234567",
-            department: "EEE",
-            year: "4th Year",
-            role: "VOLUNTEER"
+    const [users, setUsers] = useState([]);
+
+    useEffect(() => {
+        loadUsers();
+    }, []);
+    const loadUsers = async () => {
+        try {
+            const response = await getAllUsers();
+
+            console.log("API Response:", response);
+            console.log("Users:", response.data);
+
+            setUsers(response.data);
+
+        } catch (error) {
+            console.error("Axios Error:", error);
         }
-    ]);
+    };
+
+    // const loadUsers = async () => {
+    //     try {
+    //         const response = await getAllUsers();
+    //         setUsers(response.data);
+    //     } catch (error) {
+    //         console.error("Error loading users:", error);
+    //     }
+    // };
 
     return (
         <div className="dashboard">

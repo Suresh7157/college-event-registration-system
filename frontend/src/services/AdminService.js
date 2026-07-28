@@ -2,9 +2,13 @@ import axios from "axios";
 
 const BASE_URL = "http://localhost:8080/api/admin";
 
+
 // Users
 export const getAllUsers = () => {
     return axios.get(`${BASE_URL}/users`);
+};
+export const getDashboard = () => {
+    return axios.get(`${BASE_URL}/dashboard`);
 };
 
 // Events
@@ -18,3 +22,5 @@ export const getAllOrganizers = () => {
 export const getAllVolunteers = () => {
     return axios.get(`${BASE_URL}/volunteers`);
 };
+
+

@@ -19,4 +19,6 @@ public interface AdminService {
     List<UserResponse> searchOrganizers(String keyword);
     void deleteOrganizer(Long id);
     void deleteUser(Long id);
+    Long getTotalUsers();
+
 }

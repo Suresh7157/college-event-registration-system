@@ -1,39 +1,25 @@
+import React from "react";
+
 function StatCard({ title, value, icon, color }) {
-
     return (
+        <div className="col-lg-3 col-md-6">
+            <div className="admin-stat-card">
 
-        <div className="col-lg-3 col-md-6 mb-4">
+                <div className="admin-stat-left">
+                    <p className="admin-stat-title">{title}</p>
+                    <h2 className="admin-stat-value">{value}</h2>
+                </div>
 
-            <div className="card stat-card">
-
-                <div className="card-body d-flex justify-content-between align-items-center">
-
-                    <div>
-
-                        <h6 className="text-muted">
-                            {title}
-                        </h6>
-
-                        <h2 className="fw-bold">
-                            {value}
-                        </h2>
-
-                    </div>
-
-                    <div className={`icon-circle bg-${color}`}>
-
-                        <i className={icon}></i>
-
-                    </div>
-
+                <div
+                    className="admin-stat-icon"
+                    style={{ backgroundColor: color }}
+                >
+                    {icon}
                 </div>
 
             </div>
-
         </div>
-
     );
-
 }
 
 export default StatCard;

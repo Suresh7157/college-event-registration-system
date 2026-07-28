@@ -1,58 +1,85 @@
-import StatCard from "./StatCard.jsx";
+import { useEffect, useState } from "react";
+import {
+    FaUsers,
+    FaCalendarAlt,
+    FaIdBadge,
+    FaChartBar
+} from "react-icons/fa";
+
+import StatCard from "./StatCard";
 import Analytics from "../../components/admin/Analytics";
+import { getDashboard } from "../../services/AdminService";
 
 function Dashboard() {
 
-    return (
+    const [stats, setStats] = useState({
+        totalUsers: 0,
+        totalEvents: 0,
+        totalVolunteers: 0,
+        totalRegistrations: 0
+    });
 
+    useEffect(() => {
+        loadDashboard();
+    }, []);
+
+    const loadDashboard = async () => {
+        try {
+            const response = await getDashboard();
+            setStats(response.data);
+        } catch (error) {
+            console.error("Error loading dashboard:", error);
+        }
+    };
+
+    return (
         <div className="dashboard">
 
-            <h2 className="dashboard-title">
-                Welcome, Admin 👋
-            </h2>
+            {/* Header */}
+            <div className="dashboard-header">
+                <h2>Welcome, Admin 👋</h2>
+                <p>
+                    Manage users, events, volunteers and reports from one place.
+                </p>
+            </div>
 
-            <p className="dashboard-subtitle mb-4">
-                Manage users, events, organizers and reports.
-            </p>
-
-            {/* Statistics Cards */}
-            <div className="row">
+            {/* Statistic Cards */}
+            <div className="row g-4">
 
                 <StatCard
                     title="Users"
-                    value="120"
-                    icon="bi bi-people-fill"
-                    color="primary"
+                    value={stats.totalUsers}
+                    icon={<FaUsers />}
+                    color="#0d6efd"
                 />
 
                 <StatCard
                     title="Events"
-                    value="18"
-                    icon="bi bi-calendar-event"
-                    color="success"
+                    value={stats.totalEvents}
+                    icon={<FaCalendarAlt />}
+                    color="#198754"
                 />
 
                 <StatCard
-                    title="Organizers"
-                    value="12"
-                    icon="bi bi-person-badge-fill"
-                    color="warning"
+                    title="Volunteers"
+                    value={stats.totalVolunteers}
+                    icon={<FaIdBadge />}
+                    color="#ffc107"
                 />
 
                 <StatCard
-                    title="Reports"
-                    value="25"
-                    icon="bi bi-bar-chart-fill"
-                    color="danger"
+                    title="Registrations"
+                    value={stats.totalRegistrations}
+                    icon={<FaChartBar />}
+                    color="#dc3545"
                 />
 
             </div>
 
-            {/* Analytics */}
+            {/* Analytics Section */}
             <Analytics />
 
         </div>
-
     );
 }
 

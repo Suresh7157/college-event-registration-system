@@ -1,68 +1,89 @@
 import { NavLink } from "react-router-dom";
+
 function Sidebar() {
-
     return (
-
         <div className="sidebar">
 
+            {/* Logo */}
             <div className="sidebar-header">
-
-                <h3>CEMS</h3>
-
-                <small>Admin Panel</small>
-
+                <h2>CEMS</h2>
+                <p>Admin Panel</p>
             </div>
 
-            <ul className="nav flex-column mt-3">
+            {/* Menu */}
+            <ul className="sidebar-menu">
 
                 <li>
-                    <a href="/admin/dashboard" className="nav-link active">
-                        <i className="bi bi-speedometer2 me-2"></i>
-                        Dashboard
-                    </a>
+                    <NavLink
+                        to="/admin/dashboard"
+                        className={({ isActive }) =>
+                            isActive ? "nav-link active" : "nav-link"
+                        }
+                    >
+                        <i className="bi bi-speedometer2"></i>
+                        <span>Dashboard</span>
+                    </NavLink>
                 </li>
 
                 <li>
-                    <a href="/admin/users" className="nav-link">
-                        <i className="bi bi-people me-2"></i>
-                        Users
-                    </a>
+                    <NavLink
+                        to="/admin/users"
+                        className={({ isActive }) =>
+                            isActive ? "nav-link active" : "nav-link"
+                        }
+                    >
+                        <i className="bi bi-people"></i>
+                        <span>Users</span>
+                    </NavLink>
                 </li>
 
                 <li>
-                    <a href="/admin/events" className="nav-link">
-                        <i className="bi bi-calendar-event me-2"></i>
-                        Events
-                    </a>
+                    <NavLink
+                        to="/admin/events"
+                        className={({ isActive }) =>
+                            isActive ? "nav-link active" : "nav-link"
+                        }
+                    >
+                        <i className="bi bi-calendar-event"></i>
+                        <span>Events</span>
+                    </NavLink>
                 </li>
 
                 <li>
-                    <a href="/admin/volunteers" className="nav-link">
-                        <i className="bi bi-person-badge me-2"></i>
-                        Volunteers
-                    </a>
+                    <NavLink
+                        to="/admin/volunteers"
+                        className={({ isActive }) =>
+                            isActive ? "nav-link active" : "nav-link"
+                        }
+                    >
+                        <i className="bi bi-person-badge"></i>
+                        <span>Volunteers</span>
+                    </NavLink>
                 </li>
 
                 <li>
-                    <a href="/admin/reports" className="nav-link">
-                        <i className="bi bi-bar-chart me-2"></i>
-                        Reports
-                    </a>
+                    <NavLink
+                        to="/admin/reports"
+                        className={({ isActive }) =>
+                            isActive ? "nav-link active" : "nav-link"
+                        }
+                    >
+                        <i className="bi bi-bar-chart-line"></i>
+                        <span>Reports</span>
+                    </NavLink>
                 </li>
 
-                <li className="mt-5">
-                    <a href="#" className="nav-link">
-                        <i className="bi bi-box-arrow-right me-2"></i>
-                        Logout
-                    </a>
+                <li className="logout">
+                    <NavLink to="/login" className="nav-link">
+                        <i className="bi bi-box-arrow-right"></i>
+                        <span>Logout</span>
+                    </NavLink>
                 </li>
 
             </ul>
 
         </div>
-
     );
-
 }
 
 export default Sidebar;

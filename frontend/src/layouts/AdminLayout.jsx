@@ -1,7 +1,8 @@
-import Sidebar from "../pages/admin/Sidebar.jsx";
-import Navbar from "../pages/admin/Navbar.jsx";
+import { Outlet } from "react-router-dom";
+import Sidebar from "../pages/admin/Sidebar";
+import Navbar from "../pages/admin/Navbar";
 
-function AdminLayout({ children }) {
+function AdminLayout() {
     return (
         <div className="admin-layout">
 
@@ -11,7 +12,7 @@ function AdminLayout({ children }) {
 
                 <Navbar />
 
-                {children}
+                <Outlet />
 
             </div>
 

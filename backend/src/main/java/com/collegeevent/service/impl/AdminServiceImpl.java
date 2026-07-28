@@ -33,7 +33,12 @@ public class AdminServiceImpl implements AdminService {
         response.setTotalRegistrations(registrationRepository.count());
         response.setTotalVolunteers(volunteerRepository.count());
 
-        return response;
+        return new DashboardResponse(
+                userRepository.count(),
+                eventRepository.count(),
+                volunteerRepository.count(),
+                0L        // Replace with reportRepository.count() when Reports module is ready
+        );
     }
 
     @Override
@@ -158,4 +163,9 @@ public class AdminServiceImpl implements AdminService {
     public void deleteOrganizer(Long id) {
         userRepository.deleteById(id);
     }
+    @Override
+    public Long getTotalUsers() {
+        return userRepository.count();
+    }
+
 }
