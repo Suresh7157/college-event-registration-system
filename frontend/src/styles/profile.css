@@ -1,0 +1,92 @@
+.profile-container{
+
+    margin-left:260px;
+
+    min-height:100vh;
+
+    background:#f4f7fc;
+}
+
+.profile-content{
+
+    padding:35px;
+
+    display:flex;
+
+    justify-content:center;
+}
+
+.profile-card{
+
+    width:700px;
+
+    background:white;
+
+    border-radius:15px;
+
+    overflow:hidden;
+
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+.profile-header{
+
+    background:#2563eb;
+
+    color:white;
+
+    text-align:center;
+
+    padding:40px;
+}
+
+.profile-header img{
+
+    width:130px;
+
+    height:130px;
+
+    border-radius:50%;
+
+    border:5px solid white;
+
+    margin-bottom:15px;
+}
+
+.profile-header h2{
+
+    margin-bottom:8px;
+}
+
+.profile-details{
+
+    padding:35px;
+}
+
+.detail-row{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    padding:18px 0;
+
+    border-bottom:1px solid #e2e8f0;
+}
+
+.detail-row span{
+
+    color:#64748b;
+
+    font-weight:500;
+}
+
+.detail-row strong{
+
+    color:#1e293b;
+}
+
+.status.approved{
+
+    color:#16a34a;
+}

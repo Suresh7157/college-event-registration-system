@@ -1,0 +1,109 @@
+.attendance-container{
+
+    margin-left:260px;
+
+    min-height:100vh;
+
+    background:#f4f7fc;
+}
+
+.attendance-content{
+
+    padding:35px;
+}
+
+.attendance-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:25px;
+}
+
+.attendance-header h2{
+
+    color:#1e293b;
+}
+
+.attendance-percentage{
+
+    background:#16a34a;
+
+    color:white;
+
+    font-size:22px;
+
+    font-weight:bold;
+
+    padding:15px 25px;
+
+    border-radius:12px;
+}
+
+.attendance-card{
+
+    background:white;
+
+    padding:25px;
+
+    border-radius:15px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+}
+
+.attendance-table{
+
+    width:100%;
+
+    border-collapse:collapse;
+}
+
+.attendance-table th{
+
+    background:#2563eb;
+
+    color:white;
+
+    padding:15px;
+}
+
+.attendance-table td{
+
+    padding:15px;
+
+    border-bottom:1px solid #e2e8f0;
+}
+
+.attendance-table tr:hover{
+
+    background:#f8fafc;
+}
+
+.present{
+
+    background:#16a34a;
+
+    color:white;
+
+    padding:6px 15px;
+
+    border-radius:20px;
+
+    font-size:14px;
+}
+
+.absent{
+
+    background:#dc2626;
+
+    color:white;
+
+    padding:6px 15px;
+
+    border-radius:20px;
+
+    font-size:14px;
+}

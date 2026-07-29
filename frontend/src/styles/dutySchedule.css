@@ -1,0 +1,112 @@
+.schedule-container{
+
+    margin-left:260px;
+
+    min-height:100vh;
+
+    background:#f4f7fc;
+}
+
+.schedule-content{
+
+    padding:35px;
+}
+
+.schedule-title{
+
+    color:#1e293b;
+
+    margin-bottom:30px;
+}
+
+.schedule-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+
+    gap:25px;
+}
+
+.schedule-card{
+
+    display:flex;
+
+    background:white;
+
+    border-radius:15px;
+
+    overflow:hidden;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+    transition:.3s;
+}
+
+.schedule-card:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:0 10px 25px rgba(0,0,0,.12);
+}
+
+.schedule-date{
+
+    width:90px;
+
+    background:#2563eb;
+
+    color:white;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:22px;
+
+    font-weight:bold;
+
+    text-align:center;
+}
+
+.schedule-details{
+
+    padding:25px;
+
+    flex:1;
+}
+
+.schedule-details h4{
+
+    color:#1e293b;
+
+    margin-bottom:15px;
+}
+
+.schedule-details p{
+
+    color:#64748b;
+
+    margin-bottom:12px;
+}
+
+.role-badge{
+
+    display:inline-block;
+
+    margin-top:10px;
+
+    background:#16a34a;
+
+    color:white;
+
+    padding:8px 16px;
+
+    border-radius:25px;
+
+    font-size:14px;
+
+    font-weight:600;
+}
