@@ -3,14 +3,14 @@ package com.collegeevent.controller;
 import com.collegeevent.dto.DashboardResponse;
 import com.collegeevent.dto.EventResponseDTO;
 import com.collegeevent.dto.UserResponse;
+import com.collegeevent.entity.Volunteer;
 import com.collegeevent.service.AdminService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/admin")
@@ -52,8 +52,8 @@ public class AdminController {
         return ResponseEntity.ok(adminService.searchEvents(keyword));
     }
     @GetMapping("/volunteers")
-    public ResponseEntity<List<UserResponse>> getAllOrganizers() {
-        return ResponseEntity.ok(adminService.getAllOrganizers());
+    public ResponseEntity<List<Volunteer>> getAllVolunteers() {
+        return ResponseEntity.ok(adminService.getAllVolunteers());
     }
 
     @GetMapping("/volunteers/search")
@@ -70,6 +70,49 @@ public class AdminController {
 
         return ResponseEntity.ok("Organizer deleted successfully");
     }
+
+    @GetMapping("/organizers")
+    public ResponseEntity<List<UserResponse>> getAllOrganizers() {
+        return ResponseEntity.ok(adminService.getAllOrganizers());
+    }
+    @GetMapping("/analytics/users")
+    public ResponseEntity<List<Object[]>> usersAnalytics() {
+        return ResponseEntity.ok(adminService.getUsersByDepartment());
+    }
+
+    @GetMapping("/analytics/registrations")
+    public ResponseEntity<List<Object[]>> registrationAnalytics() {
+        return ResponseEntity.ok(adminService.getRegistrationsByEvent());
+    }
+
+    @GetMapping("/analytics/volunteers")
+    public ResponseEntity<List<Object[]>> volunteerAnalytics() {
+        return ResponseEntity.ok(adminService.getVolunteerStatus());
+    }
+    @GetMapping("/profile/{id}")
+    public ResponseEntity<UserResponse> getAdminProfile(@PathVariable Long id) {
+        return ResponseEntity.ok(adminService.getAdminProfile(id));
+    }
+    @PutMapping("/volunteers/{id}/approve")
+    public ResponseEntity<String> approveVolunteer(@PathVariable Long id) {
+
+        adminService.approveVolunteer(id);
+
+        return ResponseEntity.ok("Volunteer Approved");
+
+    }
+    @DeleteMapping("/volunteers/{id}")
+    public ResponseEntity<String> rejectVolunteer(@PathVariable Long id) {
+
+        adminService.rejectVolunteer(id);
+
+        return ResponseEntity.ok("Volunteer Rejected");
+
+    }
+
+
+
+
 
 
 }

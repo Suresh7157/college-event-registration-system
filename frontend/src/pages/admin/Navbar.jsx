@@ -1,47 +1,30 @@
-import { FaBell, FaSearch, FaUserCircle } from "react-icons/fa";
+import {
+    FaBell,
+    FaUserCircle,
+    FaUniversity,
+    FaChevronDown
+} from "react-icons/fa";
+import { NavLink } from "react-router-dom";
 
 function Navbar() {
+
     return (
-        <nav className="navbar">
+
+        <nav className="admin-navbar">
 
             {/* Left Side */}
-            <div className="navbar-left">
 
-                <h3>Admin Dashboard</h3>
+            <div className="admin-navbar-left">
 
-                <div className="search-box">
+                <div className="navbar-logo">
 
-                    <FaSearch className="search-icon" />
-
-                    <input
-                        type="text"
-                        placeholder="Search..."
-                    />
-
-                </div>
-
-            </div>
-
-            {/* Right Side */}
-            <div className="navbar-right">
-
-                <button className="notification-btn">
-
-                    <FaBell />
-
-                    <span className="notification-badge">3</span>
-
-                </button>
-
-                <div className="profile">
-
-                    <FaUserCircle className="profile-icon" />
+                    <FaUniversity className="logo-icon" />
 
                     <div>
 
-                        <h6>Administrator</h6>
+                        <h4>College Event Management</h4>
 
-                        <small>System Admin</small>
+                        <small>Administrator Panel</small>
 
                     </div>
 
@@ -49,8 +32,53 @@ function Navbar() {
 
             </div>
 
+            {/* Right Side */}
+
+            <div className="admin-navbar-right">
+
+                {/* Notification */}
+
+                <button className="notification-btn">
+
+                    <FaBell />
+
+                    <span className="notification-badge">
+                        3
+                    </span>
+
+                </button>
+
+                {/* Profile */}
+
+                <NavLink
+                    to="/admin/profile"
+                    className="profile-link"
+                >
+
+                    <div className="admin-profile">
+
+                        <FaUserCircle className="profile-icon" />
+
+                        <div className="profile-details">
+
+                            <h6>Administrator</h6>
+
+                            <small>View Profile</small>
+
+                        </div>
+
+                        <FaChevronDown className="dropdown-icon" />
+
+                    </div>
+
+                </NavLink>
+
+            </div>
+
         </nav>
+
     );
+
 }
 
 export default Navbar;

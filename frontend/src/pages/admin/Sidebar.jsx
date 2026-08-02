@@ -51,6 +51,17 @@ function Sidebar() {
 
                 <li>
                     <NavLink
+                        to="/admin/organizers"
+                        className={({ isActive }) =>
+                            isActive ? "nav-link active" : "nav-link"
+                        }
+                    >
+                        <i className="bi bi-person-workspace me-2"></i>
+                        <span>Organizers</span>
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink
                         to="/admin/volunteers"
                         className={({ isActive }) =>
                             isActive ? "nav-link active" : "nav-link"
@@ -61,17 +72,7 @@ function Sidebar() {
                     </NavLink>
                 </li>
 
-                <li>
-                    <NavLink
-                        to="/admin/reports"
-                        className={({ isActive }) =>
-                            isActive ? "nav-link active" : "nav-link"
-                        }
-                    >
-                        <i className="bi bi-bar-chart-line"></i>
-                        <span>Reports</span>
-                    </NavLink>
-                </li>
+
 
                 <li className="logout">
                     <NavLink to="/login" className="nav-link">
@@ -79,6 +80,7 @@ function Sidebar() {
                         <span>Logout</span>
                     </NavLink>
                 </li>
+
 
             </ul>
 

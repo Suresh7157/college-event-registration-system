@@ -11,34 +11,19 @@ import {
     Legend
 } from "recharts";
 
-const userData = [
-    { department: "CSE", users: 120 },
-    { department: "CST", users: 95 },
-    { department: "ECE", users: 80 },
-    { department: "EEE", users: 60 },
-    { department: "MBA", users: 40 },
-];
-
-const eventData = [
-    { event: "Hackathon", registrations: 180 },
-    { event: "Workshop", registrations: 150 },
-    { event: "Coding", registrations: 120 },
-    { event: "Quiz", registrations: 95 },
-];
-
-const volunteerData = [
-    { name: "Assigned", value: 35 },
-    { name: "Available", value: 20 },
-    { name: "Pending", value: 10 },
-];
-
 const COLORS = [
     "#0d6efd",
     "#198754",
-    "#ffc107"
+    "#ffc107",
+    "#dc3545",
+    "#6f42c1"
 ];
 
-function Analytics() {
+function Analytics({
+                       userData = [],
+                       eventData = [],
+                       volunteerData = []
+                   }) {
 
     return (
 
@@ -48,7 +33,7 @@ function Analytics() {
 
             <div className="row g-4">
 
-                {/* Users Chart */}
+                {/* Users by Department */}
 
                 <div className="col-lg-6">
 
@@ -60,20 +45,17 @@ function Analytics() {
                                 Users by Department
                             </h5>
 
-                            <ResponsiveContainer
-                                width="100%"
-                                height={320}
-                            >
+                            <ResponsiveContainer width="100%" height={320}>
 
                                 <BarChart data={userData}>
 
-                                    <XAxis dataKey="department" />
+                                    <XAxis dataKey="department"/>
 
-                                    <YAxis />
+                                    <YAxis/>
 
-                                    <Tooltip />
+                                    <Tooltip/>
 
-                                    <Legend />
+                                    <Legend/>
 
                                     <Bar
                                         dataKey="users"
@@ -91,7 +73,7 @@ function Analytics() {
 
                 </div>
 
-                {/* Event Chart */}
+                {/* Registrations by Event */}
 
                 <div className="col-lg-6">
 
@@ -103,10 +85,7 @@ function Analytics() {
                                 Event Registrations
                             </h5>
 
-                            <ResponsiveContainer
-                                width="100%"
-                                height={320}
-                            >
+                            <ResponsiveContainer width="100%" height={320}>
 
                                 <BarChart data={eventData}>
 
@@ -140,7 +119,7 @@ function Analytics() {
 
             <div className="row g-4 mt-2">
 
-                {/* Pie Chart */}
+                {/* Volunteer Status */}
 
                 <div className="col-lg-5">
 
@@ -152,16 +131,14 @@ function Analytics() {
                                 Volunteer Status
                             </h5>
 
-                            <ResponsiveContainer
-                                width="100%"
-                                height={320}
-                            >
+                            <ResponsiveContainer width="100%" height={320}>
 
                                 <PieChart>
 
                                     <Pie
                                         data={volunteerData}
                                         dataKey="value"
+                                        nameKey="name"
                                         outerRadius={110}
                                         label
                                     >
@@ -171,7 +148,7 @@ function Analytics() {
 
                                                 <Cell
                                                     key={index}
-                                                    fill={COLORS[index]}
+                                                    fill={COLORS[index % COLORS.length]}
                                                 />
 
                                             ))
@@ -193,7 +170,7 @@ function Analytics() {
 
                 </div>
 
-                {/* Email */}
+                {/* Dashboard Summary */}
 
                 <div className="col-lg-7">
 
@@ -202,58 +179,52 @@ function Analytics() {
                         <div className="card-body">
 
                             <h5 className="mb-4">
-                                📧 Send Email
+                                Dashboard Summary
                             </h5>
 
-                            <div className="mb-3">
+                            <table className="table table-bordered">
 
-                                <label className="form-label">
-                                    Recipient
-                                </label>
+                                <thead className="table-light">
 
-                                <input
-                                    type="email"
-                                    className="form-control"
-                                    placeholder="Enter recipient email"
-                                />
+                                <tr>
 
-                            </div>
+                                    <th>Analytics</th>
 
-                            <div className="mb-3">
+                                    <th>Total</th>
 
-                                <label className="form-label">
-                                    Subject
-                                </label>
+                                </tr>
 
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="Enter subject"
-                                />
+                                </thead>
 
-                            </div>
+                                <tbody>
 
-                            <div className="mb-3">
+                                <tr>
 
-                                <label className="form-label">
-                                    Message
-                                </label>
+                                    <td>Total Departments</td>
 
-                                <textarea
-                                    rows="6"
-                                    className="form-control"
-                                    placeholder="Write your message..."
-                                />
+                                    <td>{userData.length}</td>
 
-                            </div>
+                                </tr>
 
-                            <button className="btn btn-primary w-100">
+                                <tr>
 
-                                <i className="bi bi-send-fill me-2"></i>
+                                    <td>Total Events</td>
 
-                                Send Email
+                                    <td>{eventData.length}</td>
 
-                            </button>
+                                </tr>
+
+                                <tr>
+
+                                    <td>Volunteer Categories</td>
+
+                                    <td>{volunteerData.length}</td>
+
+                                </tr>
+
+                                </tbody>
+
+                            </table>
 
                         </div>
 

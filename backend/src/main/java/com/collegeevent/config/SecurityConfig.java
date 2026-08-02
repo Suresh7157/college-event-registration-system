@@ -11,9 +11,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-
-import java.util.List;
-
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfig {
@@ -24,12 +21,11 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
+                // Enable CORS
+                .cors(Customizer.withDefaults())
 
                 // Disable CSRF
                 .csrf(csrf -> csrf.disable())
-
-                // Enable CORS
-                .cors(Customizer.withDefaults())
 
                 // Stateless Session
                 .sessionManagement(session ->
@@ -39,46 +35,31 @@ public class SecurityConfig {
                 // Authorization Rules
                 .authorizeHttpRequests(auth -> auth
 
-                        // =========================
-                        // PUBLIC APIs
-                        // =========================
+                        // Public APIs
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/error").permitAll()
 
-                        // =========================
-                        // ADMIN APIs
-                        // =========================
+                        // Admin APIs
                         .requestMatchers("/api/admin/**").permitAll()
 
-                        // =========================
-                        // EVENT MANAGEMENT
-                        // =========================
+                        // Event Management
                         .requestMatchers("/api/events/**")
                         .hasAnyRole("ADMIN", "ORGANIZER")
 
-                        // =========================
-                        // STUDENT REGISTRATION
-                        // =========================
+                        // Student Registration
                         .requestMatchers("/api/registrations/**")
                         .hasRole("STUDENT")
 
-                        // =========================
-                        // VOLUNTEER MANAGEMENT
-                        // =========================
-
-                        // Student can apply
+                        // Volunteer Management
                         .requestMatchers(HttpMethod.POST, "/api/volunteers")
                         .hasRole("STUDENT")
 
-                        // Admin & Volunteer can view
                         .requestMatchers(HttpMethod.GET, "/api/volunteers/**")
                         .hasAnyRole("ADMIN", "VOLUNTEER")
 
-                        // Admin can update
                         .requestMatchers(HttpMethod.PUT, "/api/volunteers/**")
                         .hasRole("ADMIN")
 
-                        // Admin can delete
                         .requestMatchers(HttpMethod.DELETE, "/api/volunteers/**")
                         .hasRole("ADMIN")
 
@@ -97,6 +78,4 @@ public class SecurityConfig {
 
         return http.build();
     }
-
-
 }

@@ -1,37 +1,48 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+// Auth Pages
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 
+// Admin
 import AdminLayout from "./layouts/AdminLayout";
-
 import Dashboard from "./pages/admin/Dashboard";
 import Users from "./pages/admin/Users";
 import Events from "./pages/admin/Events";
 import Volunteers from "./pages/admin/Volunteers";
-import Reports from "./pages/admin/Reports";
+
 import Settings from "./pages/admin/Settings";
+import Organizers from "./pages/admin/Organizers";
+import Profile from "./pages/admin/Profile";
 
 function App() {
-    return (
-        <Routes>
+  return (
+      <BrowserRouter>
 
-            <Route path="/" element={<Navigate to="/login" replace />} />
+              <Routes>
 
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+                  {/* Authentication */}
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/register" element={<Register />} />
 
-            <Route path="/admin" element={<AdminLayout />}>
-                <Route path="dashboard" element={<Dashboard />} />
-                <Route path="users" element={<Users />} />
-                <Route path="events" element={<Events />} />
-                <Route path="volunteers" element={<Volunteers />} />
-                <Route path="reports" element={<Reports />} />
-                <Route path="settings" element={<Settings />} />
-            </Route>
+                  {/* Admin */}
+                  <Route path="/admin" element={<AdminLayout />}>
+                      <Route path="dashboard" element={<Dashboard />} />
+                      <Route path="users" element={<Users />} />
+                      <Route path="events" element={<Events />} />
+                      <Route path="volunteers" element={<Volunteers />} />
+                      <Route path="organizers" element={<Organizers />} />
+                      <Route path="settings" element={<Settings />} />
+                      <Route path="profile" element={<Profile />} />
+                  </Route>
 
-        </Routes>
-    );
+
+
+
+
+              </Routes>
+
+      </BrowserRouter>
+  );
 }
-
 export default App;

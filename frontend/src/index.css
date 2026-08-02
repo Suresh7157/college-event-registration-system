@@ -1,36 +1,16 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
 
-html,
-body,
-#root {
-  width: 100%;
-  min-height: 100%;
+body{
+  font-family:"Poppins",sans-serif;
+  background:#f5f7fb;
+  overflow-x:hidden;
 }
 
-body {
-  margin: 0;
-  font-family: "Poppins", sans-serif;
-  background: #f5f7fb;
-  overflow-x: hidden;
-}
-
-a {
-  text-decoration: none;
-}
-
-ul {
-  list-style: none;
-}
-
-button {
-  cursor: pointer;
-}
-
-img {
-  max-width: 100%;
-  display: block;
+#root{
+  width:100%;
+  min-height:100vh;
 }

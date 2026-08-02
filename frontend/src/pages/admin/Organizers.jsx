@@ -1,27 +1,25 @@
 import { useEffect, useState } from "react";
-import { getAllUsers } from "../../services/AdminService";
+import { getAllOrganizers } from "../../services/AdminService";
 
-function Users() {
+function Organizers() {
 
-    const [users, setUsers] = useState([]);
+    const [organizers, setOrganizers] = useState([]);
 
     useEffect(() => {
-        loadUsers();
+        loadOrganizers();
     }, []);
 
-    const loadUsers = async () => {
+    const loadOrganizers = async () => {
 
         try {
 
-            const response = await getAllUsers();
+            const response = await getAllOrganizers();
 
-            console.log("API Response:", response.data);
-
-            setUsers(response.data);
+            setOrganizers(response.data);
 
         } catch (error) {
 
-            console.error("Error loading users:", error);
+            console.error("Error loading organizers:", error);
 
         }
 
@@ -38,18 +36,18 @@ function Users() {
                 <div>
 
                     <h2 className="page-title">
-                        Manage Users
+                        Manage Organizers
                     </h2>
 
                     <p className="page-subtitle">
-                        View and manage all registered users.
+                        View and manage all event organizers.
                     </p>
 
                 </div>
 
             </div>
 
-            {/* Users Table */}
+            {/* Organizers Table */}
 
             <div className="table-container">
 
@@ -79,36 +77,32 @@ function Users() {
 
                     <tbody>
 
-                    {users.length > 0 ? (
+                    {organizers.length > 0 ? (
 
-                        users.map((user) => (
+                        organizers.map((organizer) => (
 
-                            <tr key={user.id}>
+                            <tr key={organizer.id}>
 
-                                <td>{user.id}</td>
+                                <td>{organizer.id}</td>
 
-                                <td>{user.fullName}</td>
+                                <td>
+                                    <strong>{organizer.fullName}</strong>
+                                </td>
 
-                                <td>{user.email}</td>
+                                <td>{organizer.email}</td>
 
-                                <td>{user.phoneNumber}</td>
+                                <td>{organizer.phoneNumber}</td>
 
-                                <td>{user.department}</td>
+                                <td>{organizer.department}</td>
 
-                                <td>{user.year}</td>
+                                <td>{organizer.year}</td>
 
                                 <td>
 
-                                    <span
-                                        className={`badge ${
-                                            user.role === "ADMIN"
-                                                ? "bg-danger"
-                                                : user.role === "ORGANIZER"
-                                                    ? "bg-warning text-dark"
-                                                    : "bg-success"
-                                        }`}
-                                    >
-                                        {user.role}
+                                    <span className="badge bg-primary">
+
+                                        {organizer.role}
+
                                     </span>
 
                                 </td>
@@ -125,7 +119,9 @@ function Users() {
                                 colSpan="7"
                                 className="text-center py-5"
                             >
-                                No Users Found
+
+                                No Organizers Found
+
                             </td>
 
                         </tr>
@@ -144,4 +140,4 @@ function Users() {
 
 }
 
-export default Users;
+export default Organizers;

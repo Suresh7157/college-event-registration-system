@@ -3,6 +3,8 @@ package com.collegeevent.service;
 import com.collegeevent.dto.DashboardResponse;
 import com.collegeevent.dto.EventResponseDTO;
 import com.collegeevent.dto.UserResponse;
+import com.collegeevent.entity.Volunteer;
+
 import java.util.List;
 
 public interface AdminService {
@@ -21,4 +23,17 @@ public interface AdminService {
     void deleteUser(Long id);
     Long getTotalUsers();
 
+    List<Volunteer> getAllVolunteers();
+    List<Object[]> getUsersByDepartment();
+
+    List<Object[]> getRegistrationsByEvent();
+
+    List<Object[]> getVolunteerStatus();
+
+    UserResponse getProfileByEmail(String email);
+
+    UserResponse getAdminProfile(Long id);
+    void approveVolunteer(Long id);
+
+    void rejectVolunteer(Long id);
 }

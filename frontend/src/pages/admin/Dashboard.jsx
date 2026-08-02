@@ -16,7 +16,10 @@ function Dashboard() {
         totalUsers: 0,
         totalEvents: 0,
         totalVolunteers: 0,
-        totalRegistrations: 0
+        totalRegistrations: 0,
+        usersByDepartment: [],
+        registrationsByEvent: [],
+        volunteerStatus: []
     });
 
     useEffect(() => {
@@ -30,6 +33,7 @@ function Dashboard() {
         } catch (error) {
             console.error("Error loading dashboard:", error);
         }
+
     };
 
     return (
@@ -61,23 +65,28 @@ function Dashboard() {
                 />
 
                 <StatCard
-                    title="Volunteers"
-                    value={stats.totalVolunteers}
-                    icon={<FaIdBadge />}
+                    title="Registrations"
+                    value={stats.totalRegistrations}
+                    icon={<FaChartBar />}
                     color="#ffc107"
                 />
 
                 <StatCard
-                    title="Registrations"
-                    value={stats.totalRegistrations}
-                    icon={<FaChartBar />}
+                    title="Volunteers"
+                    value={stats.totalVolunteers}
+                    icon={<FaIdBadge />}
+
                     color="#dc3545"
                 />
 
             </div>
 
             {/* Analytics Section */}
-            <Analytics />
+            <Analytics
+                userData={stats.usersByDepartment}
+                eventData={stats.registrationsByEvent}
+                volunteerData={stats.volunteerStatus}
+            />
 
         </div>
     );

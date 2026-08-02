@@ -1,9 +1,10 @@
 package com.collegeevent.service.impl;
 
-import com.collegeevent.dto.DashboardResponse;
-import com.collegeevent.dto.EventResponseDTO;
-import com.collegeevent.dto.UserResponse;
+import com.collegeevent.dto.*;
+import com.collegeevent.entity.User;
+import com.collegeevent.entity.Volunteer;
 import com.collegeevent.enums.Role;
+import com.collegeevent.enums.VolunteerStatus;
 import com.collegeevent.repository.EventRepository;
 import com.collegeevent.repository.RegistrationRepository;
 import com.collegeevent.repository.UserRepository;
@@ -33,12 +34,53 @@ public class AdminServiceImpl implements AdminService {
         response.setTotalRegistrations(registrationRepository.count());
         response.setTotalVolunteers(volunteerRepository.count());
 
-        return new DashboardResponse(
-                userRepository.count(),
-                eventRepository.count(),
-                volunteerRepository.count(),
-                0L        // Replace with reportRepository.count() when Reports module is ready
+        response.setUsersByDepartment(
+
+                userRepository.getUsersByDepartment()
+                        .stream()
+                        .map(obj -> new UserDepartmentDTO(
+
+                                (String) obj[0],
+
+                                (Long) obj[1]
+
+                        ))
+                        .toList()
+
         );
+
+        response.setRegistrationsByEvent(
+
+                registrationRepository.getRegistrationsByEvent()
+                        .stream()
+                        .map(obj -> new EventRegistrationDTO(
+
+                                (String) obj[0],
+
+                                (Long) obj[1]
+
+                        ))
+                        .toList()
+
+        );
+
+        response.setVolunteerStatus(
+
+                volunteerRepository.getVolunteerStatus()
+                        .stream()
+                        .map(obj -> new VolunteerStatusDTO(
+
+                                obj[0].toString(),
+
+                                (Long) obj[1]
+
+                        ))
+                        .toList()
+
+        );
+
+        return response;
+
     }
 
     @Override
@@ -166,6 +208,75 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public Long getTotalUsers() {
         return userRepository.count();
+    }
+    @Override
+    public List<Volunteer> getAllVolunteers() {
+        return volunteerRepository.findAll();
+    }
+    @Override
+    public List<Object[]> getUsersByDepartment() {
+        return userRepository.getUsersByDepartment();
+    }
+
+    @Override
+    public List<Object[]> getRegistrationsByEvent() {
+        return registrationRepository.getRegistrationsByEvent();
+    }
+
+    @Override
+    public List<Object[]> getVolunteerStatus() {
+        return volunteerRepository.getVolunteerStatus();
+    }
+    @Override
+    public UserResponse getProfileByEmail(String email) {
+
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        return new UserResponse(
+                user.getId(),
+                user.getFullName(),
+                user.getEmail(),
+                user.getPhoneNumber(),
+                user.getDepartment(),
+                user.getYear(),
+                user.getRole()
+        );
+    }
+
+    @Override
+    public UserResponse getAdminProfile(Long id) {
+
+        var user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Admin not found"));
+
+        return new UserResponse(
+                user.getId(),
+                user.getFullName(),
+                user.getEmail(),
+                user.getPhoneNumber(),
+                user.getDepartment(),
+                user.getYear(),
+                user.getRole()
+        );
+
+    }
+    @Override
+    public void approveVolunteer(Long id) {
+
+        Volunteer volunteer = volunteerRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Volunteer not found"));
+
+        volunteer.setStatus(VolunteerStatus.APPROVED);
+
+        volunteerRepository.save(volunteer);
+
+    }
+    @Override
+    public void rejectVolunteer(Long id) {
+
+        volunteerRepository.deleteById(id);
+
     }
 
 }
