@@ -21,9 +21,6 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-                // Enable CORS
-                .cors(Customizer.withDefaults())
-
                 // Disable CSRF
                 .csrf(csrf -> csrf.disable())
 
@@ -35,35 +32,57 @@ public class SecurityConfig {
                 // Authorization Rules
                 .authorizeHttpRequests(auth -> auth
 
-                        // Public APIs
+                        // =========================
+                        // PUBLIC APIs
+                        // =========================
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/error").permitAll()
 
-                        // Admin APIs
-                        .requestMatchers("/api/admin/**").permitAll()
+                        // =========================
+                        // ADMIN APIs
+                        // =========================
+                        .requestMatchers(
+                                "/api/dashboard/**",
+                                "/api/reports/**",
+                                "/api/analytics/**"
+                        ).hasRole("ADMIN")
 
-                        // Event Management
+                        // =========================
+                        // EVENT MANAGEMENT
+                        // ADMIN & ORGANIZER
+                        // =========================
                         .requestMatchers("/api/events/**")
                         .hasAnyRole("ADMIN", "ORGANIZER")
 
-                        // Student Registration
+                        // =========================
+                        // STUDENT REGISTRATION
+                        // =========================
                         .requestMatchers("/api/registrations/**")
                         .hasRole("STUDENT")
 
-                        // Volunteer Management
+                        // =========================
+                        // VOLUNTEER MANAGEMENT
+                        // =========================
+
+                        // Student can apply for volunteer
                         .requestMatchers(HttpMethod.POST, "/api/volunteers")
                         .hasRole("STUDENT")
 
+                        // Admin & Volunteer can view
                         .requestMatchers(HttpMethod.GET, "/api/volunteers/**")
                         .hasAnyRole("ADMIN", "VOLUNTEER")
 
+                        // Only Admin can update
                         .requestMatchers(HttpMethod.PUT, "/api/volunteers/**")
                         .hasRole("ADMIN")
 
+                        // Only Admin can delete
                         .requestMatchers(HttpMethod.DELETE, "/api/volunteers/**")
                         .hasRole("ADMIN")
 
-                        // Any other request
+                        // =========================
+                        // ALL OTHER APIs
+                        // =========================
                         .anyRequest().authenticated()
                 )
 
